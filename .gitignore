@@ -1,0 +1,10 @@
+# virtual environemnt
+/venv/
+ # jetbrains IDE
+.idea
+# Caches
+__pycache__
+.pytest_cache
+dist
+build
+
