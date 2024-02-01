@@ -24,4 +24,3 @@ class PicardInsertSize(BaseModel):
     WIDTH_OF_90_PERCENT: float
     WIDTH_OF_95_PERCENT: float
     WIDTH_OF_99_PERCENT: float
-
