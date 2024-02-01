@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 pydantic = "^2.6.0"
+build = "^1.0.3"
+wheel = "^0.42.0"
 
 
 [build-system]
