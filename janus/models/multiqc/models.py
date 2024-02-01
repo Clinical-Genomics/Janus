@@ -177,9 +177,6 @@ class PicardAlignmentSummary(BaseModel):
     PCT_SOFTCLIP: float
     PCT_HARDCLIP: float
     AVG_POS_3PRIME_SOFTCLIP_LENGTH: float
-    SAMPLE: str
-    LIBRARY: str
-    READ_GROUP: str
 
 
 class SomalierIndividual(BaseModel):
@@ -233,7 +230,6 @@ class Somalier(BaseModel):
 
 
 class PeddyCheck(BaseModel):
-    Sample: str
     family_id: str
     paternal_id: float
     maternal_id: float
@@ -308,7 +304,6 @@ class PicardRNASeqMetrics(BaseModel):
 
 
 class STARAlignment(BaseModel):
-    Sample: str
     total_reads: float
     avg_input_read_length: float
     uniquely_mapped: float
