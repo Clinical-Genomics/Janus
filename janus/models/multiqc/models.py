@@ -182,9 +182,6 @@ class PicardAlignmentSummary(BaseModel):
     READ_GROUP: str
 
 
-
-
-
 class SomalierIndividual(BaseModel):
     family_id: str
     paternal_id: float
