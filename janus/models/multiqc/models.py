@@ -3,6 +3,7 @@
 from pydantic import BaseModel
 
 
+
 class PicardInsertSize(BaseModel):
     MEDIAN_INSERT_SIZE: float
     MODE_INSERT_SIZE: float
@@ -75,7 +76,7 @@ class SamtoolsStats(BaseModel):
     reads_MQ0_percent: float
 
 
-class PircardHsMetrics(BaseModel):
+class PicardHsMetrics(BaseModel):
     BAIT_SET: str
     BAIT_TERRITORY: float
     BAIT_DESIGN_EFFICIENCY: float
