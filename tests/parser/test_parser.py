@@ -1,5 +1,4 @@
 """Tests for the json parser."""
-from pathlib import Path
 from _pytest.fixtures import FixtureRequest
 import pytest
 
