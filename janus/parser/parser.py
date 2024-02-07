@@ -32,7 +32,7 @@ models: list = [
 def parse_json(content: list | dict):
     """
     Parse the json content into multiqc models.
-         Raises: ...
+         Raises: ParseJSONError in case the conent cannot be parsed into a model
     """
     parsed_content = []
     for entry, model in product(content, models):
