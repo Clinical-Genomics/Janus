@@ -5,8 +5,12 @@ import pytest
 
 
 @pytest.fixture
-def test_json_path() -> Path:
-    return Path("fixtures", "files", "test_json.json")
+def file_fixtures() -> Path:
+    return Path("fixtures", "files")
+
+@pytest.fixture
+def test_json_path(file_fixtures: Path) -> Path:
+    return Path(file_fixtures, "test_json.json")
 
 
 @pytest.fixture

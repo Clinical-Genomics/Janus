@@ -16,7 +16,7 @@ from janus.models.multiqc.models import (
     STARAlignment,
 )
 
-models = [
+models: list = [
     PicardInsertSize,
     SamtoolsStats,
     PicardHsMetrics,
