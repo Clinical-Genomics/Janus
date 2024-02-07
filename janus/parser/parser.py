@@ -28,7 +28,10 @@ models = [
 
 
 def parse_json(content: any):
-    """Parse the json content into multiqc models."""
+    """
+    Parse the json content into multiqc models.
+         Raises: ...
+     """
     parsed_content = []
     for entry in content:
         for model in models:

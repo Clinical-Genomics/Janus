@@ -24,7 +24,7 @@ from janus.models.multiqc.models import (
     ],
 )
 def test_parse_json(
-    mutliqc_json_path: Path,
+    mutliqc_json_path: str,
     model: type[SamtoolsStats | PicardAlignmentSummary | PicardHsMetrics | PicardInsertSize],
     request: FixtureRequest,
 ):
@@ -35,7 +35,7 @@ def test_parse_json(
     content = read_json(file_path=request.getfixturevalue(mutliqc_json_path))
 
     # THEN an appropriate model is returned
-    parsed_content = parse_json(content)
+    parsed_content: list = parse_json(content)
     assert parsed_content
     for content in parsed_content:
         assert isinstance(content, model)
