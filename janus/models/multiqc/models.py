@@ -1,7 +1,6 @@
 """Models for the MultiQC intermediate JSON files."""
 
-from pydantic import BaseModel
-
+from pydantic import BaseModel, Field
 
 
 class PicardInsertSize(BaseModel):
@@ -32,7 +31,7 @@ class SamtoolsStats(BaseModel):
     filtered_sequences: float
     sequences: float
     is_sorted: float
-    _1st_fragments: float
+    first_fragments: float = Field(..., alias="1st_fragments")
     last_fragments: float
     reads_mapped: float
     reads_mapped_and_paired: float
@@ -42,13 +41,12 @@ class SamtoolsStats(BaseModel):
     reads_duplicated: float
     reads_MQ0: float
     reads_QC_failed: float
-    non_primary_alignments: float
+    non_primary_alignments: float = Field(..., alias="non-primary_alignments")
     supplementary_alignments: float
     total_length: float
     total_first_fragment_length: float
     total_last_fragment_length: float
     bases_mapped: float
-    bases_mapped_cigar: float
     bases_trimmed: float
     bases_duplicated: float
     mismatches: float
@@ -66,7 +64,9 @@ class SamtoolsStats(BaseModel):
     outward_oriented_pairs: float
     pairs_with_other_orientation: float
     pairs_on_different_chromosomes: float
-    percentage_of_properly_paired_reads: float
+    percentage_of_properly_paired_reads: float = Field(
+        ..., alias="percentage_of_properly_paired_reads_(%)"
+    )
     reads_mapped_percent: float
     reads_mapped_and_paired_percent: float
     reads_unmapped_percent: float
@@ -74,6 +74,7 @@ class SamtoolsStats(BaseModel):
     reads_paired_percent: float
     reads_duplicated_percent: float
     reads_MQ0_percent: float
+    reads_QC_failed_percent: float
 
 
 class PicardHsMetrics(BaseModel):

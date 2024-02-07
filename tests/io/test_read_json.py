@@ -13,4 +13,3 @@ def test_read_json(test_json_path: Path):
     content = read_json(test_json_path)
     # THEN the JSON file is read
     assert content
-
