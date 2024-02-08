@@ -1,0 +1,18 @@
+{
+  "tendergoose": {
+    "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_median": 154,
+    "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_mean": 224.403271,
+    "Picard: Mark Duplicates_mqc-generalstats-picard_mark_duplicates-PERCENT_DUPLICATION": 0.016817,
+    "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_RIBOSOMAL_BASES": 0.6491,
+    "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_MRNA_BASES": 85.9853,
+    "STAR_mqc-generalstats-star-uniquely_mapped_percent": 91.32,
+    "STAR_mqc-generalstats-star-uniquely_mapped": 454656.0,
+    "fastp_mqc-generalstats-fastp-pct_duplication": 0.734498,
+    "fastp_mqc-generalstats-fastp-after_filtering_q30_rate": 0.929515,
+    "fastp_mqc-generalstats-fastp-after_filtering_q30_bases": 91982592.0,
+    "fastp_mqc-generalstats-fastp-filtering_result_passed_filter_reads": 995784.0,
+    "fastp_mqc-generalstats-fastp-after_filtering_gc_content": 0.516919,
+    "fastp_mqc-generalstats-fastp-pct_surviving": 99.42925611582626,
+    "fastp_mqc-generalstats-fastp-pct_adapter": 11.966050923614578
+  }
+}

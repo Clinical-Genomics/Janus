@@ -271,6 +271,7 @@ class SomalierComparison(BaseModel):
     x_ibs2: float
     expected_relatedness: float
 
+
 class PicardWGSMetrics(BaseModel):
     GENOME_TERRITORY: float
     MEAN_COVERAGE: float
@@ -305,9 +306,10 @@ class PicardWGSMetrics(BaseModel):
     HET_SNP_SENSITIVITY: float
     HET_SNP_Q: float
 
+
 class Somalier(BaseModel):
-    individual: list[SomalierIndividual] = Field(...,alias="")
-    comparison: SomalierComparison = Field(...,alias="")
+    individual: list[SomalierIndividual]
+    comparison: SomalierComparison
 
 
 class PeddyCheck(BaseModel):
@@ -411,3 +413,50 @@ class STARAlignment(BaseModel):
     unmapped_mismatches: float
     unmapped_tooshort: float
     unmapped_other: float
+
+
+class RNAfusionGeneralStats(BaseModel):
+    INSERT_SIZE_SUM_MEDIAN: float = Field(
+        ...,
+        alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median",
+    )
+    INSERT_SIZE_SUM_MEAN: float = Field(
+        ...,
+        alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_mean",
+    )
+    PERCENT_DUPLICATION: float = Field(
+        ...,
+        alias="Picard_MarkDuplicates_mqc_generalstats_picard_mark_duplicates_PERCENT_DUPLICATION",
+    )
+    PERCENT_RIBOSOMAL_BASES: float = Field(
+        ...,
+        alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_RIBOSOMAL_BASES",
+    )
+    PERCENT_MRNA_BASES: float = Field(
+        ...,
+        alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_MRNA_BASES",
+    )
+    PERCENT_UNIQUELY_MAPPED: float = Field(
+        ..., alias="STAR_mqc_generalstats_star_uniquely_mapped_percent"
+    )
+    UNIQUELY_MAPPED: float = Field(
+        ..., alias="STAR_mqc_generalstats_star_uniquely_mapped"
+    )
+    AFTER_FILTERING_Q30_RATE: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_after_filtering_q30_rate"
+    )
+    AFTER_FILTERING_Q30_BASES: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_after_filtering_q30_bases"
+    )
+    FILTERING_RESULT_PASSED_FILTER_READS: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_filtering_result_passed_filter_reads"
+    )
+    AFTER_FILTERING_GC_CONTENT: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_after_filtering_gc_content"
+    )
+    PCT_SURVIVING: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_pct_surviving"
+    )
+    PCT_ADAPTER: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_adapter")
+
+
