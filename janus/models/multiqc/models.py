@@ -434,9 +434,7 @@ class RNAfusionGeneralStats(BaseModel):
     PERCENT_UNIQUELY_MAPPED: float = Field(
         ..., alias="STAR_mqc_generalstats_star_uniquely_mapped_percent"
     )
-    UNIQUELY_MAPPED: float = Field(
-        ..., alias="STAR_mqc_generalstats_star_uniquely_mapped"
-    )
+    UNIQUELY_MAPPED: float = Field(..., alias="STAR_mqc_generalstats_star_uniquely_mapped")
     AFTER_FILTERING_Q30_RATE: float = Field(
         ..., alias="fastp_mqc_generalstats_fastp_after_filtering_q30_rate"
     )
@@ -449,7 +447,5 @@ class RNAfusionGeneralStats(BaseModel):
     AFTER_FILTERING_GC_CONTENT: float = Field(
         ..., alias="fastp_mqc_generalstats_fastp_after_filtering_gc_content"
     )
-    PCT_SURVIVING: float = Field(
-        ..., alias="fastp_mqc_generalstats_fastp_pct_surviving"
-    )
+    PCT_SURVIVING: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_surviving")
     PCT_ADAPTER: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_adapter")
