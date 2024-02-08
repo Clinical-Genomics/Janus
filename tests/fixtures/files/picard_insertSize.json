@@ -1,6 +1,6 @@
 {
-    "concatenated_ACC12685A283_XXXXXX_R_FR": {
-        "SAMPLE_NAME": "concatenated_ACC12685A283_XXXXXX_R",
+    "concatenated_Sample685A283_XXXXXX_R_FR": {
+        "SAMPLE_NAME": "concatenated_Sample685A283_XXXXXX_R",
         "MEDIAN_INSERT_SIZE": 167.0,
         "MODE_INSERT_SIZE": 122.0,
         "MEDIAN_ABSOLUTE_DEVIATION": 59.0,
@@ -25,8 +25,8 @@
         "LIBRARY": "unknown",
         "READ_GROUP": ""
     },
-    "concatenated_ACC12685A284_XXXXXX_R_FR": {
-        "SAMPLE_NAME": "concatenated_ACC12685A284_XXXXXX_R",
+    "concatenated_Sample685A284_XXXXXX_R_FR": {
+        "SAMPLE_NAME": "concatenated_Sample685A284_XXXXXX_R",
         "MEDIAN_INSERT_SIZE": 174.0,
         "MODE_INSERT_SIZE": 122.0,
         "MEDIAN_ABSOLUTE_DEVIATION": 62.0,

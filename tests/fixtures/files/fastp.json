@@ -1,6 +1,6 @@
 
 {
-    "concatenated_ACC12685A260_XXXXXX_R_fastp": {
+    "concatenated_Sample685A260_XXXXXX_R_fastp": {
         "summary": {
             "fastp_version": "0.23.2",
             "sequencing": "paired end (150 cycles + 150 cycles)",
@@ -61,9 +61,9 @@
             "total_cycles": 145,
             "overrepresented_sequences": {}
         },
-        "command": "fastp --thread 8 --in1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A260_XXXXXX_R_1.umi_optimized.fastq.gz --in2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A260_XXXXXX_R_2.umi_optimized.fastq.gz --out1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A260_XXXXXX_R_1.fp.fastq.gz --out2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A260_XXXXXX_R_2.fp.fastq.gz --json /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_ACC12685A260_XXXXXX_R_fastp.json --html /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_ACC12685A260_XXXXXX_R_fastp.html --disable_adapter_trimming --disable_quality_filtering --disable_length_filtering --disable_trim_poly_g --length_required 25 --umi --umi_loc per_read --umi_len 5 --umi_prefix UMI "
+        "command": "fastp --thread 8 --in1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A260_XXXXXX_R_1.umi_optimized.fastq.gz --in2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A260_XXXXXX_R_2.umi_optimized.fastq.gz --out1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A260_XXXXXX_R_1.fp.fastq.gz --out2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A260_XXXXXX_R_2.fp.fastq.gz --json /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_Sample685A260_XXXXXX_R_fastp.json --html /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_Sample685A260_XXXXXX_R_fastp.html --disable_adapter_trimming --disable_quality_filtering --disable_length_filtering --disable_trim_poly_g --length_required 25 --umi --umi_loc per_read --umi_len 5 --umi_prefix UMI "
     },
-    "concatenated_ACC12685A259_XXXXXX_R_fastp": {
+    "concatenated_Sample685A259_XXXXXX_R_fastp": {
         "summary": {
             "fastp_version": "0.23.2",
             "sequencing": "paired end (150 cycles + 150 cycles)",
@@ -11348,6 +11348,6 @@
             },
             "overrepresented_sequences": {}
         },
-        "command": "fastp --thread 8 --in1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A259_XXXXXX_R_1.umi_optimized.fastq.gz --in2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A259_XXXXXX_R_2.umi_optimized.fastq.gz --out1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A259_XXXXXX_R_1.fp.fastq.gz --out2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_ACC12685A259_XXXXXX_R_2.fp.fastq.gz --json /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_ACC12685A259_XXXXXX_R_fastp.json --html /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_ACC12685A259_XXXXXX_R_fastp.html --disable_adapter_trimming --disable_quality_filtering --disable_length_filtering --disable_trim_poly_g --length_required 25 --umi --umi_loc per_read --umi_len 5 --umi_prefix UMI "
+        "command": "fastp --thread 8 --in1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A259_XXXXXX_R_1.umi_optimized.fastq.gz --in2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A259_XXXXXX_R_2.umi_optimized.fastq.gz --out1 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A259_XXXXXX_R_1.fp.fastq.gz --out2 /home/proj/production/cancer/cases/quicktroll/analysis/fastq/concatenated_Sample685A259_XXXXXX_R_2.fp.fastq.gz --json /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_Sample685A259_XXXXXX_R_fastp.json --html /home/proj/production/cancer/cases/quicktroll/analysis/qc/fastp/concatenated_Sample685A259_XXXXXX_R_fastp.html --disable_adapter_trimming --disable_quality_filtering --disable_length_filtering --disable_trim_poly_g --length_required 25 --umi --umi_loc per_read --umi_len 5 --umi_prefix UMI "
     }
 }
