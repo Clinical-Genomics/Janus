@@ -38,11 +38,6 @@ class PicardInsertSize(BaseModel):
     WIDTH_OF_99_PERCENT: float
 
 
-from typing import Dict
-
-from pydantic import BaseModel
-
-
 class FastpBeforeFiltering(BaseModel):
     total_reads: int
     total_bases: int
@@ -458,5 +453,3 @@ class RNAfusionGeneralStats(BaseModel):
         ..., alias="fastp_mqc_generalstats_fastp_pct_surviving"
     )
     PCT_ADAPTER: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_adapter")
-
-
