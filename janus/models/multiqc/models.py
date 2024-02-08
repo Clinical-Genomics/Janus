@@ -14,6 +14,7 @@ class PicardDups(BaseModel):
     percent_duplication: float = Field(..., alias="PERCENT_DUPLICATION")
     estimated_library_size: float = Field(..., alias="ESTIMATED_LIBRARY_SIZE")
 
+
 class PicardInsertSize(BaseModel):
     median_insert_size: float = Field(..., alias="MEDIAN_INSERT_SIZE")
     mode_insert_size: float = Field(..., alias="MODE_INSERT_SIZE")
@@ -35,6 +36,7 @@ class PicardInsertSize(BaseModel):
     width_of_90_percent: float = Field(..., alias="WIDTH_OF_90_PERCENT")
     width_of_95_percent: float = Field(..., alias="WIDTH_OF_95_PERCENT")
     width_of_99_percent: float = Field(..., alias="WIDTH_OF_99_PERCENT")
+
 
 class FastpBeforeFiltering(BaseModel):
     total_reads: int
@@ -266,7 +268,7 @@ class SomalierComparison(BaseModel):
 
 
 class PicardWGSMetrics(BaseModel):
-    G    genome_territory: float = Field(..., alias="ENOME_TERRITORY")
+    genome_territory: float = Field(..., alias="GENOME_TERRITORY")
     mean_coverage: float = Field(..., alias="MEAN_COVERAGE")
     sd_coverage: float = Field(..., alias="SD_COVERAGE")
     median_coverage: float = Field(..., alias="MEDIAN_COVERAGE")
@@ -378,6 +380,7 @@ class PicardRNASeqMetrics(BaseModel):
     read_group: str = Field(..., alias="READ_GROUP")
     pf_not_aligned_bases: float = Field(..., alias="PF_NOT_ALIGNED_BASES")
 
+
 class STARAlignment(BaseModel):
     total_reads: float
     avg_input_read_length: float
@@ -409,13 +412,15 @@ class STARAlignment(BaseModel):
 
 class RNAfusionGeneralStats(BaseModel):
     insert_size_sum_median: float = Field(
-        ..., alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median"
+        ...,
+        alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median",
     )
     insert_size_sum_mean: float = Field(
         ..., alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_mean"
     )
     percent_duplication: float = Field(
-        ..., alias="Picard_MarkDuplicates_mqc_generalstats_picard_mark_duplicates_PERCENT_DUPLICATION"
+        ...,
+        alias="Picard_MarkDuplicates_mqc_generalstats_picard_mark_duplicates_PERCENT_DUPLICATION",
     )
     percent_ribosomal_bases: float = Field(
         ..., alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_RIBOSOMAL_BASES"
