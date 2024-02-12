@@ -14,4 +14,4 @@ async def root():
     return {"message": "Welcome to Janus"}
 
 
-app.include_router(collect_qc_router, prefix="/api", tags=["case"])
+app.include_router(collect_qc_router, prefix="/api", tags=["collect_qc"])
