@@ -3,7 +3,7 @@
 from pydantic import BaseModel
 
 
-class PostRequest(BaseModel):
+class CollectQCRequest(BaseModel):
     case_id: str
     samples: list[str]
     file_names: list[str]
