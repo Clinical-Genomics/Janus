@@ -24,9 +24,7 @@ from janus.models.multiqc.models import (
 )
 def test_parse_json(
     mutliqc_json_path: str,
-    model: type[
-        SamtoolsStats | PicardAlignmentSummary | PicardHsMetrics | PicardInsertSize
-    ],
+    model: type[SamtoolsStats | PicardAlignmentSummary | PicardHsMetrics | PicardInsertSize],
     request: FixtureRequest,
 ):
     """Test the parsing of different multiqc json files into the multiqcmodel."""
