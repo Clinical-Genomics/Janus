@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
-from janus.api.endpoints.collect_qc import collect_qc_router
+from janus.server.api import collect_qc_router
 
 app = FastAPI()
 
@@ -14,4 +14,4 @@ async def root():
     return {"message": "Welcome to Janus"}
 
 
-app.include_router(collect_qc_router, prefix="/api", tags=["collect_qc"])
+app.include_router(collect_qc_router, prefix="/server", tags=["collect_qc"])
