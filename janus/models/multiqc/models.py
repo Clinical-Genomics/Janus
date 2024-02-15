@@ -416,17 +416,20 @@ class RNAfusionGeneralStats(BaseModel):
         alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median",
     )
     insert_size_sum_mean: float = Field(
-        ..., alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_mean"
+        ...,
+        alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_mean",
     )
     percent_duplication: float = Field(
         ...,
         alias="Picard_MarkDuplicates_mqc_generalstats_picard_mark_duplicates_PERCENT_DUPLICATION",
     )
     percent_ribosomal_bases: float = Field(
-        ..., alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_RIBOSOMAL_BASES"
+        ...,
+        alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_RIBOSOMAL_BASES",
     )
     percent_mrna_bases: float = Field(
-        ..., alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_MRNA_BASES"
+        ...,
+        alias="Picard_RnaSeqMetrics_mqc_generalstats_picard_rnaseqmetrics_PCT_MRNA_BASES",
     )
     percent_uniquely_mapped: float = Field(
         ..., alias="STAR_mqc_generalstats_star_uniquely_mapped_percent"
