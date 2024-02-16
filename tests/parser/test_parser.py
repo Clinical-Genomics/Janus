@@ -4,7 +4,7 @@ import pytest
 
 from janus.io.read_json import read_json
 
-from janus.parser.parser import parse_json
+from janus.services.parser import parse_json
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
