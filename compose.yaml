@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  janus-app:
+  janus:
+    container_name: janus
     build:
       context: .
       target: base
