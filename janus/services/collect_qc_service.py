@@ -1,13 +1,29 @@
 """Module to hold the collect qc service."""
+from janus.constants.workflow_models import WorkflowSampleModels
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample
+
+
+def get_model_name(workflow: str, prep_category: str) -> str:
+    """
+    Get the model name from workflow and prep category.
+    NOTE: Balsamic samples cannot uniquely be identified by workflow only.
+    """
+    if workflow == "balsamic":
+        model_key: str = f"{workflow}_{prep_category}".upper()
+    else:
+        model_key: str = workflow.upper()
+    return model_key
 
 
 def get_sample_model(
     workflow: str, prep_category: str | None
 ) -> BalsamicTGASample | BalsamicTGASample:
     """Return the sample model for a workflow and prep category if specified."""
-    pass
+    model_name: str = get_model_name(workflow=workflow, prep_category=prep_category)
+    for model in WorkflowSampleModels:
+        if model.name == model_name:
+            return WorkflowSampleModels.value()
 
 
 def add_sample_id_to_model(
