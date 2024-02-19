@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG PYTHON_VERSION=3.11.6
-FROM python:${PYTHON_VERSION}-slim as base
+FROM registry.access.redhat.com/ubi9/python-311:latest
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
