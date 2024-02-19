@@ -1,9 +1,9 @@
 """Module that holds the parsing functionality."""
 from itertools import product
+from pathlib import Path
 
-from pydantic_core._pydantic_core import ValidationError
-
-from janus.exceptions.exceptions import ParseJSONError
+from janus.constants.workflow_models import MultiQCModels
+from janus.io.read_json import read_json
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
@@ -13,34 +13,33 @@ from janus.models.multiqc.models import (
     SomalierComparison,
     PeddyCheck,
     PicardRNASeqMetrics,
-    STARAlignment,
+    STARAlignment, Somalier, Fastp,
 )
 
-models: list = [
-    PicardInsertSize,
-    SamtoolsStats,
-    PicardHsMetrics,
-    PicardAlignmentSummary,
-    SomalierIndividual,
-    SomalierComparison,
-    PeddyCheck,
-    PicardRNASeqMetrics,
-    STARAlignment,
-]
 
-
-def parse_json(content: list | dict):
-    """
-    Parse the json content into multiqc models.
-         Raises: ParseJSONError in case the content cannot be parsed into a model.
-    """
-    parsed_content = []
-    for entry, model in product(content, models):
-        entry_content = content[entry]
-        try:
-            parsed_content.append(model.model_validate(entry_content))
-        except ValidationError:
-            pass
-    if not parsed_content:
-        raise ParseJSONError(f"Failed to parse JSON file.")
+def parse_sample_metrics(
+    file_path: Path, sample_ids: list[str], metrics_model: str
+) -> dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary]:
+    """Parse the content for a given file path into the corresponding model for each sample."""
+    json_content: list[dict] = read_json(file_path)
+    parsed_content: dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary] = {}
+    for entry, sample_id in product(json_content, sample_ids):
+        if sample_id in entry:
+            parsed_content[sample_id] = MultiQCModels[metrics_model].value(**json_content[entry])
     return parsed_content
+
+
+def parse_somalier(file_path: Path) -> Somalier:
+    """Parse the somalier multiqc file."""
+    individuals: list[SomalierIndividual] = []
+    comparison: SomalierComparison | None = None
+    json_content: list[dict] = read_json(file_path)
+    for entry in json_content:
+        if entry.__contains__("*"):
+            comparison = SomalierComparison(**json_content[entry])
+        else:
+            individuals.append(SomalierIndividual(**json_content[entry]))
+    return Somalier(individuals=individuals,comparison=comparison)
+
+def parse_fastp(file_path) -> Fastp:
+    """Parse the Fastp multiqc file."""

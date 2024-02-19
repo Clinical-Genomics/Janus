@@ -1,6 +1,6 @@
 """Models for the MultiQC intermediate JSON files."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator, field_validator
 
 
 class PicardDups(BaseModel):
@@ -266,6 +266,10 @@ class SomalierComparison(BaseModel):
     x_ibs2: float
     expected_relatedness: float
 
+class Somalier(BaseModel):
+    individual: list[SomalierIndividual]
+    comparison: SomalierComparison
+
 
 class PicardWGSMetrics(BaseModel):
     genome_territory: float = Field(..., alias="GENOME_TERRITORY")
@@ -302,9 +306,6 @@ class PicardWGSMetrics(BaseModel):
     het_snp_q: float = Field(..., alias="HET_SNP_Q")
 
 
-class Somalier(BaseModel):
-    individual: list[SomalierIndividual]
-    comparison: SomalierComparison
 
 
 class PeddyCheck(BaseModel):

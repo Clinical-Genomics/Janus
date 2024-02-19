@@ -3,6 +3,11 @@ from pathlib import Path
 
 import pytest
 
+from janus.dto.collect_qc_request import CollectQCRequest
+
+
+# Parser
+
 
 @pytest.fixture
 def file_fixtures() -> Path:
@@ -37,3 +42,25 @@ def samtools_stats_path(file_fixtures: Path) -> Path:
 @pytest.fixture
 def somalier_path(file_fixtures: Path) -> Path:
     return Path(file_fixtures, "somalier.json")
+
+
+# Collect qc service
+@pytest.fixture
+def balsamic_workflow() -> str:
+    return "balsamic"
+
+
+@pytest.fixture
+def wgs_prep_category() -> str:
+    return "wgs"
+
+
+@pytest.fixture
+def collect_qc_request() -> CollectQCRequest:
+    return CollectQCRequest(
+        case_id="example_case_id",
+        sample_ids=["sample1", "sample2"],
+        file_names=["file1.txt", "file2.txt"],
+        workflow="balsamic",
+        prep_category="tga",
+    )
