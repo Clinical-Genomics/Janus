@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM registry.access.redhat.com/ubi9/python-311:latest
+FROM registry.access.redhat.com/ubi9/python-311:latest AS base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /janus
 
 # Copy the directory
-COPY janus /janus
+COPY . /janus
 
 # install dependencies
 RUN pip install poetry
