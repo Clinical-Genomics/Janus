@@ -14,7 +14,12 @@ def add_sample_id_to_model(
     sample_ids: list[str], sample_model: BalsamicWGSSample | BalsamicTGASample
 ):
     """Add a sample id to the sample model."""
-    pass
+    samples: list[BalsamicWGSSample | BalsamicWGSSample] = []
+    for sample_id in sample_ids:
+        sample = sample_model
+        sample.sample_id = sample_id
+        samples.append(sample)
+    return samples
 
 
 def prepare_sample_models(collect_qc_request: CollectQCRequest):
