@@ -20,6 +20,11 @@ def test_json_path(file_fixtures: Path) -> Path:
 
 
 @pytest.fixture
+def fastp_path(file_fixtures: Path) -> Path:
+    return Path(file_fixtures, "fastp.json")
+
+
+@pytest.fixture
 def alignment_summary_metrics_path(file_fixtures: Path) -> Path:
     return Path(file_fixtures, "picard_AlignmentSummaryMetrics.json")
 
@@ -42,6 +47,11 @@ def samtools_stats_path(file_fixtures: Path) -> Path:
 @pytest.fixture
 def somalier_path(file_fixtures: Path) -> Path:
     return Path(file_fixtures, "somalier.json")
+
+
+@pytest.fixture
+def test_sample_ids() -> list[str]:
+    return ["testsampleA", "testsampleB"]
 
 
 # Collect qc service

@@ -1,40 +1,39 @@
 """Tests for the json parser."""
+from pathlib import Path
+
 from _pytest.fixtures import FixtureRequest
 import pytest
 
-from janus.io.read_json import read_json
 
-from janus.services.parser import parse_json
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
     PicardHsMetrics,
     PicardAlignmentSummary,
+    Fastp, Somalier,
 )
+from janus.services.parser import parse_fastp, parse_somalier
 
 
-@pytest.mark.parametrize(
-    "mutliqc_json_path, model",
-    [
-        ("samtools_stats_path", SamtoolsStats),
-        ("alignment_summary_metrics_path", PicardAlignmentSummary),
-        ("picard_hs_metrics_path", PicardHsMetrics),
-        ("picard_insert_size_path", PicardInsertSize),
-    ],
-)
-def test_parse_json(
-    mutliqc_json_path: str,
-    model: type[SamtoolsStats | PicardAlignmentSummary | PicardHsMetrics | PicardInsertSize],
-    request: FixtureRequest,
-):
-    """Test the parsing of different multiqc json files into the multiqcmodel."""
-    # GIVEN a path to an intermediate multiqc json file
+def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
 
-    # WHEN parsed the read content
-    content = read_json(file_path=request.getfixturevalue(mutliqc_json_path))
+    # GIVEN a file path and sample ids
 
-    # THEN an appropriate model is returned
-    parsed_content: list = parse_json(content)
-    assert parsed_content
-    for content in parsed_content:
-        assert isinstance(content, model)
+    # WHEN parsing the fastp json file
+    parsed_content: dict[Fastp] = parse_fastp(file_path=fastp_path, sample_ids=test_sample_ids)
+
+    # THEN the fastp is parsed
+    for entry in parsed_content:
+        assert entry in test_sample_ids
+        assert isinstance(parsed_content[entry], Fastp)
+        content: Fastp = parsed_content[entry]
+        assert content.after_filtering.total_reads > 0
+def test_parse_somalier(somalier_path: Path):
+
+    # GIVEN a file path
+
+    # WHEN parsing the somalier json file
+    parsed_content: Somalier = parse_somalier(file_path=somalier_path)
+
+    # THEN the somalier files is parsed
+    assert isinstance(parsed_content, Somalier)

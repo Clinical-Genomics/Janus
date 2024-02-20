@@ -45,21 +45,23 @@ def parse_somalier(file_path: Path) -> Somalier:
             comparison = SomalierComparison(**json_content[entry])
         else:
             individuals.append(SomalierIndividual(**json_content[entry]))
-    return Somalier(individuals=individuals, comparison=comparison)
+    return Somalier(individual=individuals, comparison=comparison)
 
 
-def parse_fastp(
-    file_path: Path, sample_ids: list[str]
-) -> dict[FastpBeforeFiltering | FastpAfterFiltering]:
+def parse_fastp(file_path: Path, sample_ids: list[str]) -> dict[Fastp]:
     """Parse the Fastp multiqc file."""
     json_content: list[dict] = read_json(file_path)
-    parsed_content: dict[FastpBeforeFiltering | FastpAfterFiltering] = {}
+    parsed_content: dict[Fastp] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
-            parsed_content[sample_id]["before_filtering"] = json_content[entry]["summary"][
-                "before_filtering"
-            ]
-            parsed_content[sample_id]["after_filtering"] = json_content[entry]["summary"][
-                "after_filtering"
-            ]
+            before_filtering = FastpBeforeFiltering(
+                **json_content[entry]["summary"]["before_filtering"]
+            )
+            after_filtering = FastpAfterFiltering(
+                **json_content[entry]["summary"]["after_filtering"]
+            )
+            parsed_content[sample_id] = Fastp(
+                before_filtering=before_filtering, after_filtering=after_filtering
+            )
+
     return parsed_content

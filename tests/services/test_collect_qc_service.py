@@ -48,4 +48,4 @@ def test_prepare_sample_models(collect_qc_request: CollectQCRequest):
     # THEN the sample models are prepared
     for model in prepared_models:
         assert isinstance(model, type(BalsamicTGASample))
-        assert model.sample_id in collect_qc_request.samples
+        assert model.sample_id in collect_qc_request.sample_ids

@@ -40,7 +40,7 @@ def prepare_sample_models(collect_qc_request: CollectQCRequest):
         workflow=collect_qc_request.workflow, prep_category=collect_qc_request.prep_category
     )
     samples: list[BalsamicWGSSample | BalsamicTGASample] = add_sample_id_to_model(
-        sample_ids=collect_qc_request.samples, sample_model=sample_model
+        sample_ids=collect_qc_request.sample_ids, sample_model=sample_model
     )
     return samples
 
