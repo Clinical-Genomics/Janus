@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from janus.constants.workflow_models import MultiQCModels
 from janus.dto.collect_qc_request import CollectQCRequest
 
 
@@ -53,6 +54,49 @@ def somalier_path(file_fixtures: Path) -> Path:
 def test_sample_ids() -> list[str]:
     return ["testsampleA", "testsampleB"]
 
+@pytest.fixture
+def picard_hs_metrics_name():
+    return MultiQCModels.PICARD_HS_METRICS.name
+
+@pytest.fixture
+def picard_wgs_metrics_name():
+    return MultiQCModels.PICARD_WGS_METRICS.name
+
+@pytest.fixture
+def picard_dups_name():
+    return MultiQCModels.PICARD_DUPS.name
+
+@pytest.fixture
+def picard_insert_size_name():
+    return MultiQCModels.PICARD_INSERT_SIZE.name
+
+@pytest.fixture
+def picard_alignment_summary_name():
+    return MultiQCModels.PICARD_ALIGNMENT_SUMMARY.name
+
+@pytest.fixture
+def fastp_name():
+    return MultiQCModels.FASTP.name
+
+@pytest.fixture
+def peddy_check_name():
+    return MultiQCModels.PEDDY_CHECK.name
+
+@pytest.fixture
+def somalier_name():
+    return MultiQCModels.SOMALIER.name
+
+@pytest.fixture
+def picard_rna_seq_metrics_name():
+    return MultiQCModels.PICARDRNASEQMETRICS.name
+
+@pytest.fixture
+def star_alignment_name():
+    return MultiQCModels.STARALIGNMENT.name
+
+@pytest.fixture
+def rna_fusion_general_stats_name():
+    return MultiQCModels.RNAFUSIONGENERALSTATS.name
 
 # Collect qc service
 @pytest.fixture

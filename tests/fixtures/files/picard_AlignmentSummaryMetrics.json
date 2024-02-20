@@ -1,5 +1,5 @@
 {
-    "concatenated_Sample685A284_XXXXXX_R": {
+    "concatenated_testsampleA_XXXXXX_R": {
         "CATEGORY": "PAIR",
         "TOTAL_READS": 128746236.0,
         "PF_READS": 128746236.0,
@@ -36,7 +36,7 @@
         "LIBRARY": "unknown",
         "READ_GROUP": ""
     },
-    "concatenated_Sample685A283_XXXXXX_R": {
+    "concatenated_testsampleB_XXXXXX_R": {
         "CATEGORY": "PAIR",
         "TOTAL_READS": 59555362.0,
         "PF_READS": 59555362.0,

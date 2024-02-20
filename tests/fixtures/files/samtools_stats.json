@@ -1,5 +1,5 @@
 {
-    "concatenated_Sample685A284_XXXXXX_R": {
+    "concatenated_testsampleA_XXXXXX_R": {
         "raw_total_sequences": 128746236.0,
         "filtered_sequences": 0.0,
         "sequences": 128746236.0,
@@ -48,7 +48,7 @@
         "reads_MQ0_percent": 1.519326747540798,
         "reads_QC_failed_percent": 0.0
     },
-    "concatenated_Sample685A283_XXXXXX_R": {
+    "concatenated_testsampleB_XXXXXX_R": {
         "raw_total_sequences": 59555362.0,
         "filtered_sequences": 0.0,
         "sequences": 59555362.0,
