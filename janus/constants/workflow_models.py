@@ -1,8 +1,19 @@
 """Constants for the workflow sample models."""
 from enum import Enum
 
-from janus.models.multiqc.models import PicardHsMetrics, PicardWGSMetrics, PeddyCheck, PicardDups, PicardInsertSize, \
-    Fastp, PicardAlignmentSummary, Somalier, PicardRNASeqMetrics, RNAfusionGeneralStats, STARAlignment
+from janus.models.multiqc.models import (
+    PicardHsMetrics,
+    PicardWGSMetrics,
+    PeddyCheck,
+    PicardDups,
+    PicardInsertSize,
+    Fastp,
+    PicardAlignmentSummary,
+    Somalier,
+    PicardRNASeqMetrics,
+    RNAfusionGeneralStats,
+    STARAlignment,
+)
 from janus.models.workflow.models import BalsamicTGASample, BalsamicWGSSample
 
 

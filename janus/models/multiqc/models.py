@@ -266,6 +266,7 @@ class SomalierComparison(BaseModel):
     x_ibs2: float
     expected_relatedness: float
 
+
 class Somalier(BaseModel):
     individual: list[SomalierIndividual]
     comparison: SomalierComparison
@@ -304,8 +305,6 @@ class PicardWGSMetrics(BaseModel):
     fold_95_base_penalty: float = Field(..., alias="FOLD_95_BASE_PENALTY")
     het_snp_sensitivity: float = Field(..., alias="HET_SNP_SENSITIVITY")
     het_snp_q: float = Field(..., alias="HET_SNP_Q")
-
-
 
 
 class PeddyCheck(BaseModel):

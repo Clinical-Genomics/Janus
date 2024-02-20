@@ -13,7 +13,11 @@ from janus.models.multiqc.models import (
     SomalierComparison,
     PeddyCheck,
     PicardRNASeqMetrics,
-    STARAlignment, Somalier, Fastp,
+    STARAlignment,
+    Somalier,
+    Fastp,
+    FastpAfterFiltering,
+    FastpBeforeFiltering,
 )
 
 
@@ -22,7 +26,9 @@ def parse_sample_metrics(
 ) -> dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary]:
     """Parse the content for a given file path into the corresponding model for each sample."""
     json_content: list[dict] = read_json(file_path)
-    parsed_content: dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary] = {}
+    parsed_content: dict[
+        SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
+    ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
             parsed_content[sample_id] = MultiQCModels[metrics_model].value(**json_content[entry])
@@ -39,7 +45,21 @@ def parse_somalier(file_path: Path) -> Somalier:
             comparison = SomalierComparison(**json_content[entry])
         else:
             individuals.append(SomalierIndividual(**json_content[entry]))
-    return Somalier(individuals=individuals,comparison=comparison)
+    return Somalier(individuals=individuals, comparison=comparison)
 
-def parse_fastp(file_path) -> Fastp:
+
+def parse_fastp(
+    file_path: Path, sample_ids: list[str]
+) -> dict[FastpBeforeFiltering | FastpAfterFiltering]:
     """Parse the Fastp multiqc file."""
+    json_content: list[dict] = read_json(file_path)
+    parsed_content: dict[FastpBeforeFiltering | FastpAfterFiltering] = {}
+    for entry, sample_id in product(json_content, sample_ids):
+        if sample_id in entry:
+            parsed_content[sample_id]["before_filtering"] = json_content[entry]["summary"][
+                "before_filtering"
+            ]
+            parsed_content[sample_id]["after_filtering"] = json_content[entry]["summary"][
+                "after_filtering"
+            ]
+    return parsed_content
