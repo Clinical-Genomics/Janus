@@ -4,7 +4,7 @@ from pathlib import Path
 from _pytest.fixtures import FixtureRequest
 import pytest
 
-from janus.constants.workflow_models import MultiQCModels
+from janus.mappers.mappers import MultiQCModels
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
@@ -46,7 +46,9 @@ def test_parse_somalier(somalier_path: Path):
     "file_path,sample_ids,metrics_model",
     [("alignment_summary_metrics_path", "test_sample_ids", "picard_alignment_summary_name")],
 )
-def test_parse_sample_metrics(file_path: str, sample_ids: str, metrics_model: str, request: FixtureRequest):
+def test_parse_sample_metrics(
+    file_path: str, sample_ids: str, metrics_model: str, request: FixtureRequest
+):
 
     # GIVEN a file path, sample ids and a metrics model
     file_path: Path = request.getfixturevalue(file_path)

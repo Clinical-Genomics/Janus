@@ -2,7 +2,7 @@
 from itertools import product
 from pathlib import Path
 
-from janus.constants.workflow_models import MultiQCModels
+from janus.mappers.mappers import MultiQCModels
 from janus.io.read_json import read_json
 from janus.models.multiqc.models import (
     PicardInsertSize,
@@ -11,9 +11,6 @@ from janus.models.multiqc.models import (
     PicardAlignmentSummary,
     SomalierIndividual,
     SomalierComparison,
-    PeddyCheck,
-    PicardRNASeqMetrics,
-    STARAlignment,
     Somalier,
     Fastp,
     FastpAfterFiltering,

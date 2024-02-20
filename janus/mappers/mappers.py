@@ -34,3 +34,23 @@ class MultiQCModels(Enum):
 class WorkflowSampleModels(Enum):
     BALSAMIC_TGA: callable = BalsamicTGASample
     BALSAMIC_WGS: callable = BalsamicWGSSample
+
+
+class WorkflowParseFunctions(Enum):
+    BALSAMIC_TGA: list[str] = [
+        "SOMALIER",
+        "FASTP",
+        "PICARD_HS_METRICS",
+        "PICARD_DUPS",
+        "PICARD_INSERT_SIZE",
+        "PICARD_ALIGNMENT_SUMMARY",
+    ]
+    BALSAMIC_WGS: list[str] = [
+        "SOMALIER",
+        "FASTP",
+        "PICARD_HS_METRICS",
+        "PICARD_DUPS",
+        "PICARD_INSERT_SIZE",
+        "PICARD_ALIGNMENT_SUMMARY",
+        "PICARD_WGS_METRICS",
+    ]

@@ -1,5 +1,5 @@
 """Module to hold the collect qc service."""
-from janus.constants.workflow_models import WorkflowSampleModels
+from janus.mappers.mappers import WorkflowSampleModels
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample
 
@@ -45,6 +45,6 @@ def prepare_sample_models(collect_qc_request: CollectQCRequest):
     return samples
 
 
-def collect_qc_for_sample(collect_qc_request: CollectQCRequest):
+def collect_qc(collect_qc_request: CollectQCRequest):
     """Collect the qc metrics for a sample."""
     # For every sample
