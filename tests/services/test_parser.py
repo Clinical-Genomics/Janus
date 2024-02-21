@@ -4,6 +4,7 @@ from pathlib import Path
 from _pytest.fixtures import FixtureRequest
 import pytest
 
+from janus.constants.FileTag import FileTag
 from janus.mappers.tag_to_models import TagToModel
 from janus.models.multiqc.models import (
     PicardInsertSize,
@@ -26,9 +27,12 @@ def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
     # THEN the fastp is parsed
     for entry in parsed_content:
         assert entry in test_sample_ids
-        assert isinstance(parsed_content[entry], Fastp)
-        content: Fastp = parsed_content[entry]
-        assert content.after_filtering.total_reads > 0
+        sample_metrics = parsed_content[entry]
+        for metrics_tag in parsed_content[entry]:
+            assert metrics_tag == FileTag.FASTP.value
+            assert isinstance(sample_metrics[metrics_tag], Fastp)
+            content: Fastp = sample_metrics[metrics_tag]
+            assert content.after_filtering.total_reads > 0
 
 
 def test_parse_somalier(somalier_path: Path):
@@ -43,7 +47,7 @@ def test_parse_somalier(somalier_path: Path):
 
 
 @pytest.mark.parametrize(
-    "file_path,sample_ids,metrics_model",
+    "file_path,sample_ids,tag",
     [
         ("alignment_summary_metrics_path", "test_sample_ids", "picard_alignment_summary_tag"),
         ("picard_hs_metrics_path", "test_sample_ids", "picard_hs_metrics_tag"),
@@ -54,25 +58,28 @@ def test_parse_somalier(somalier_path: Path):
     ],
 )
 def test_parse_sample_metrics(
-    file_path: str, sample_ids: str, metrics_model: str, request: FixtureRequest
+    file_path: str, sample_ids: str, tag: str, request: FixtureRequest
 ):
 
     # GIVEN a file path, sample ids and a metrics model
     file_path: Path = request.getfixturevalue(file_path)
     sample_ids: list[str] = request.getfixturevalue(sample_ids)
-    metrics_model: str = request.getfixturevalue(metrics_model)
+    tag: str = request.getfixturevalue(tag)
     # WHEN parsing the specified metrics model
     parsed_content: dict[
         SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
-    ] = parse_sample_metrics(file_path=file_path, sample_ids=sample_ids, tag=metrics_model)
+    ] = parse_sample_metrics(file_path=file_path, sample_ids=sample_ids, tag=tag)
 
     # THEN the content is parsed
     for entry in parsed_content:
         assert entry in sample_ids
-        content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
-            parsed_content[entry]
+        sample_metrics = parsed_content[entry]
+        for metrics_tag in parsed_content[entry]:
+            assert tag == metrics_tag
+            content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
+            sample_metrics[metrics_tag]
         )
-        assert isinstance(content, TagToModel[metrics_model].value)
+            assert isinstance(content, TagToModel[tag].value)
 
 
 

@@ -8,7 +8,7 @@ from janus.mappers.workflow_to_sample_model import WorkflowToSampleModel
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample, Balsamic
 
 
-def get_model_name(workflow: str, prep_category: str) -> str:
+def get_sample_model_name(workflow: str, prep_category: str) -> str:
     """
     Get the model name from workflow and prep category.
     NOTE: Balsamic samples cannot uniquely be identified by workflow only.
@@ -20,36 +20,13 @@ def get_sample_model(
     workflow: str, prep_category: str | None
 ) -> BalsamicTGASample | BalsamicWGSSample:
     """Return the sample model for a workflow and prep category if specified."""
-    model_name: str = get_model_name(workflow=workflow, prep_category=prep_category)
+    model_name: str = get_sample_model_name(workflow=workflow, prep_category=prep_category)
     return WorkflowToSampleModel[model_name].value
 
 
 def get_workflow_models(workflow: str) -> Balsamic:
     """Return the model for a workflow."""
     return WorkflowToModel[workflow].value
-
-
-def add_sample_id_to_model(
-    sample_ids: list[str], sample_model: type[BalsamicWGSSample | BalsamicTGASample]
-):
-    """Add a sample id to the sample model."""
-    samples: list[BalsamicWGSSample | BalsamicWGSSample] = []
-    for sample_id in sample_ids:
-        sample = sample_model
-        sample.sample_id = sample_id
-        samples.append(sample)
-    return samples
-
-
-def prepare_sample_models(collect_qc_request: CollectQCRequest):
-    """Prepare sample model list to which the multiqc files have to be parsed."""
-    sample_model: BalsamicWGSSample | BalsamicTGASample = get_sample_model(
-        workflow=collect_qc_request.workflow, prep_category=collect_qc_request.prep_category
-    )
-    samples: list[BalsamicWGSSample | BalsamicTGASample] = add_sample_id_to_model(
-        sample_ids=collect_qc_request.sample_ids, sample_model=sample_model
-    )
-    return samples
 
 
 def collect_metrics_for_models(collect_qc_request: CollectQCRequest,
@@ -68,14 +45,26 @@ def collect_metrics_for_models(collect_qc_request: CollectQCRequest,
         )
     return collected_metrics
 
-def collect_qc(collect_qc_request: CollectQCRequest):
-    """Collect the qc metrics for a sample."""
 
+def get_collected_metrics_for_sample(collected_metrics: list[dict], sample_id: str) -> dict:
+    sample_metrics: dict = {"sample_id" : sample_id}
+    for collected_metric in collected_metrics:
+        for metric_tag, metric in collected_metric.items():
+            if metric_tag == sample_id:
+                sample_metrics[metric_tag] = metric
+    return sample_metrics
+
+def collect_qc(collect_qc_request: CollectQCRequest):
+    """Collect the qc metrics for a samples."""
     collected_metrics: list[dict] = collect_metrics_for_models(
         file_paths_and_tags=collect_qc_request.files, sample_ids=collect_qc_request.sample_ids
     )
     # get the prepared sample models
-    sample_models: list[BalsamicWGSSample | BalsamicTGASample] = prepare_sample_models(collect_qc_request)
-    # put the data into the proper sample models
-    workflow_model: Balsamic = get_workflow_models(collect_qc_request.workflow)
-    # generate collect qc response
+    sample_model: BalsamicWGSSample | BalsamicTGASample = get_sample_model(workflow=collect_qc_request.workflow,prep_category=collect_qc_request.prep_category)
+    workflow_samples: list[BalsamicWGSSample | BalsamicTGASample] = []
+    for sample_id in collect_qc_request.sample_ids:
+        collected_sample_metrics: dict = get_collected_metrics_for_sample(collected_metrics=collected_metrics, sample_id=sample_id)
+        collected_sample_metrics_model: BalsamicWGSSample | BalsamicTGASample = sample_model(**collected_sample_metrics)
+        workflow_samples.append(collected_sample_metrics_model)
+
+

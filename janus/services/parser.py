@@ -3,7 +3,7 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 
-
+from janus.constants.FileTag import FileTag
 from janus.io.read_json import read_json
 from janus.mappers.tag_to_models import TagToModel
 
@@ -31,7 +31,7 @@ def parse_sample_metrics(
     ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
-            parsed_content[sample_id] = TagToModel[tag].value(**json_content[entry])
+            parsed_content[sample_id] = {tag:TagToModel[tag].value(**json_content[entry])}
     return parsed_content
 
 
@@ -60,8 +60,8 @@ def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]
             after_filtering = FastpAfterFiltering(
                 **json_content[entry]["summary"]["after_filtering"]
             )
-            parsed_content[sample_id] = Fastp(
+            parsed_content[sample_id] = {FileTag.FASTP.value: Fastp(
                 before_filtering=before_filtering, after_filtering=after_filtering
-            )
+            )}
 
     return parsed_content
