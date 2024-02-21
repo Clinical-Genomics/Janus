@@ -1,4 +1,5 @@
 """Module that holds the parsing functionality."""
+from enum import Enum
 from itertools import product
 from pathlib import Path
 
@@ -34,7 +35,7 @@ def parse_sample_metrics(
     return parsed_content
 
 
-def parse_somalier(file_path: Path, **kwargs) -> Somalier:
+def parse_somalier(file_path: Path, case_id: str, **kwargs) -> dict[str,Somalier]:
     """Parse the somalier multiqc file."""
     individuals: list[SomalierIndividual] = []
     comparison: SomalierComparison | None = None
@@ -44,7 +45,7 @@ def parse_somalier(file_path: Path, **kwargs) -> Somalier:
             comparison = SomalierComparison(**json_content[entry])
         else:
             individuals.append(SomalierIndividual(**json_content[entry]))
-    return Somalier(individual=individuals, comparison=comparison)
+    return {case_id: Somalier(individual=individuals, comparison=comparison)}
 
 
 def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]:

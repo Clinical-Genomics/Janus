@@ -36,10 +36,10 @@ def test_parse_somalier(somalier_path: Path):
     # GIVEN a file path
 
     # WHEN parsing the somalier json file
-    parsed_content: Somalier = parse_somalier(file_path=somalier_path)
+    parsed_content: dict = parse_somalier(file_path=somalier_path, case_id="testcase")
 
     # THEN the somalier files is parsed
-    assert isinstance(parsed_content, Somalier)
+    assert isinstance(parsed_content["testcase"], Somalier)
 
 
 @pytest.mark.parametrize(
@@ -73,3 +73,6 @@ def test_parse_sample_metrics(
             parsed_content[entry]
         )
         assert isinstance(content, TagToModel[metrics_model].value)
+
+
+

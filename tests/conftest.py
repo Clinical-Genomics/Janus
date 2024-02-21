@@ -153,9 +153,7 @@ def collect_qc_request(test_file_tag_model: FilePathAndTag) -> CollectQCRequest:
 
 
 @pytest.fixture
-def balsamic_files_wgs(
-        request: FixtureRequest
-) -> list[FilePathAndTag]:
+def balsamic_files_wgs(request: FixtureRequest) -> list[FilePathAndTag]:
 
     fixtures: dict = {
         "alignment_summary_metrics_path": "picard_alignment_summary_tag",
@@ -168,11 +166,14 @@ def balsamic_files_wgs(
         "samtools_stats_path": "samtools_stats_tag",
     }
 
-    file_path_tags: dict = {request.getfixturevalue(key): request.getfixturevalue(value) for key, value in fixtures.items()}
+    file_path_tags: dict = {
+        request.getfixturevalue(key): request.getfixturevalue(value)
+        for key, value in fixtures.items()
+    }
 
     files: list[FilePathAndTag] = []
     for key, value in file_path_tags.items():
-        files.append(FilePathAndTag(file_path=key.name, tag=value))
+        files.append(FilePathAndTag(file_path=str(key), tag=value))
     return files
 
 

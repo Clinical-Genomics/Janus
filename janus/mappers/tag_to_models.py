@@ -18,6 +18,7 @@ from janus.models.multiqc.models import (
 
 class TagToModel(Enum):
     """Mapping for the multiqc models."""
+
     hsmetrics: callable = PicardHsMetrics
     wgsmetrics: callable = PicardWGSMetrics
     dups: callable = PicardDups

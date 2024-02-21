@@ -13,6 +13,7 @@ from janus.models.multiqc.models import (
 )
 
 
+
 class BalsamicWGSSample(BaseModel):
     sample_id: str
     alignmentsummarymetrics: PicardAlignmentSummary | None
@@ -20,7 +21,6 @@ class BalsamicWGSSample(BaseModel):
     wgsmetrics: PicardWGSMetrics | None
     hsmetrics: PicardHsMetrics | None
     insertsize: PicardInsertSize | None
-    somalier: Somalier | None
     stats: SamtoolsStats
     fastp: Fastp
 
@@ -31,6 +31,9 @@ class BalsamicTGASample(BaseModel):
     dups: PicardDups | None
     hsmetrics: PicardHsMetrics | None
     insertsize: PicardInsertSize | None
-    somalier: Somalier | None
     stats: SamtoolsStats
     fastp: Fastp
+
+class Balsamic(BaseModel):
+    samples: list[BalsamicWGSSample | BalsamicTGASample]
+    somalier: Somalier

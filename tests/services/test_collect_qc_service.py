@@ -1,6 +1,4 @@
 """Tests for the collect qc service."""
-import pytest
-
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample
 from janus.services.collect_qc_service import (
@@ -55,14 +53,16 @@ def test_prepare_sample_models(collect_qc_request: CollectQCRequest):
 def test_collect_metrics_for_models(collect_qc_request_balsamic_wgs):
 
     # GIVEN a collect qc request
-
+    expected_keys: list[str] = [collect_qc_request_balsamic_wgs.sample_ids[0],
+                                collect_qc_request_balsamic_wgs.sample_ids[1],
+                                collect_qc_request_balsamic_wgs.case_id
+                                ]
     # WHEN collecting the metrics for the models
     collected_metrics: list[dict] = collect_metrics_for_models(
-        file_paths_and_tags=collect_qc_request_balsamic_wgs.files,
-        sample_ids=collect_qc_request_balsamic_wgs.sample_ids,
+        collect_qc_request_balsamic_wgs,
     )
 
     # THEN the metrics are returned
     for metric in collected_metrics:
         for key, value in metric.items():
-            assert key in collect_qc_request_balsamic_wgs.sample_ids
+            assert key in expected_keys
