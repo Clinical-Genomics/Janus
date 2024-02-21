@@ -57,9 +57,7 @@ def test_parse_somalier(somalier_path: Path):
         ("picard_dups_path", "test_sample_ids", "picard_dups_tag"),
     ],
 )
-def test_parse_sample_metrics(
-    file_path: str, sample_ids: str, tag: str, request: FixtureRequest
-):
+def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request: FixtureRequest):
 
     # GIVEN a file path, sample ids and a metrics model
     file_path: Path = request.getfixturevalue(file_path)
@@ -77,9 +75,6 @@ def test_parse_sample_metrics(
         for metrics_tag in parsed_content[entry]:
             assert tag == metrics_tag
             content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
-            sample_metrics[metrics_tag]
-        )
+                sample_metrics[metrics_tag]
+            )
             assert isinstance(content, TagToModel[tag].value)
-
-
-

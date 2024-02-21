@@ -5,7 +5,7 @@ from janus.services.collect_qc_service import (
     get_sample_model,
     add_sample_id_to_model,
     prepare_sample_models,
-    collect_metrics_for_models,
+    collect_metrics,
 )
 
 
@@ -53,12 +53,13 @@ def test_prepare_sample_models(collect_qc_request: CollectQCRequest):
 def test_collect_metrics_for_models(collect_qc_request_balsamic_wgs):
 
     # GIVEN a collect qc request
-    expected_keys: list[str] = [collect_qc_request_balsamic_wgs.sample_ids[0],
-                                collect_qc_request_balsamic_wgs.sample_ids[1],
-                                collect_qc_request_balsamic_wgs.case_id
-                                ]
+    expected_keys: list[str] = [
+        collect_qc_request_balsamic_wgs.sample_ids[0],
+        collect_qc_request_balsamic_wgs.sample_ids[1],
+        collect_qc_request_balsamic_wgs.case_id,
+    ]
     # WHEN collecting the metrics for the models
-    collected_metrics: list[dict] = collect_metrics_for_models(
+    collected_metrics: list[dict] = collect_metrics(
         collect_qc_request_balsamic_wgs,
     )
 
