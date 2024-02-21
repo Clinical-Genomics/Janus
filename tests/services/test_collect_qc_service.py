@@ -2,7 +2,8 @@
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample, Balsamic
 from janus.services.collect_qc_service import (
-    collect_metrics, collect_balsamic_metrics,
+    collect_metrics,
+    collect_balsamic_metrics,
 )
 
 

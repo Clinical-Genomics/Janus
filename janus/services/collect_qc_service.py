@@ -60,7 +60,9 @@ def collect_balsamic_metrics(collect_qc_request: CollectQCRequest) -> Balsamic:
     samples: dict = get_formatted_sample_metrics(
         collected_metrics=collected_metrics, sample_ids=collect_qc_request.sample_ids
     )
-    case_metrics: dict = get_case_metrics(collected_metrics= collected_metrics,case_id= collect_qc_request.case_id)
+    case_metrics: dict = get_case_metrics(
+        collected_metrics=collected_metrics, case_id=collect_qc_request.case_id
+    )
     return Balsamic(
         case_id=collect_qc_request.case_id,
         samples=samples,
