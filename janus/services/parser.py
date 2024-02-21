@@ -40,12 +40,16 @@ def parse_somalier(file_path: Path, case_id: str, **kwargs) -> dict[str, Somalie
     individuals: list[SomalierIndividual] = []
     comparison: SomalierComparison | None = None
     json_content: list[dict] = read_json(file_path)
+
     for entry in json_content:
         if entry.__contains__("*"):
             comparison = SomalierComparison(**json_content[entry])
         else:
             individuals.append(SomalierIndividual(**json_content[entry]))
-    return {case_id: Somalier(individual=individuals, comparison=comparison)}
+    somalier_content: dict = {
+        FileTag.SOMALIER.value: Somalier(individual=individuals, comparison=comparison)
+    }
+    return {case_id: somalier_content}
 
 
 def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]:

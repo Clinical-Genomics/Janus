@@ -1,7 +1,8 @@
 """Module to hold the collect qc service."""
-
+from janus.constants.FileTag import FileTag
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.mappers.tag_to_parse_function import tag_to_parse_function
+from janus.models.workflow.models import Balsamic
 
 
 def collect_metrics(
@@ -21,6 +22,7 @@ def collect_metrics(
         )
     return collected_metrics
 
+
 def format_sample_metrics(collected_metrics: list[dict], sample_id: str) -> dict:
     """Format the metrics for a sample."""
     sample_metrics: dict = {"sample_id": sample_id}
@@ -30,11 +32,11 @@ def format_sample_metrics(collected_metrics: list[dict], sample_id: str) -> dict
                 sample_metrics[metric_tag] = metric
     return sample_metrics
 
-def get_formatted_sample_metrics(collect_qc_request: CollectQCRequest):
+
+def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list[str]):
     """Get formatted sample metrics."""
-    collected_metrics: list[dict] = collect_metrics(collect_qc_request)
     formatted_sample_metrics: list = []
-    for sample_id in collect_qc_request.sample_ids:
+    for sample_id in sample_ids:
         collected_sample_metrics: dict = format_sample_metrics(
             collected_metrics=collected_metrics, sample_id=sample_id
         )
@@ -42,3 +44,16 @@ def get_formatted_sample_metrics(collect_qc_request: CollectQCRequest):
     return {"samples": formatted_sample_metrics}
 
 
+def collect_balsamic_metrics(collect_qc_request: CollectQCRequest) -> Balsamic:
+    """Collect multiqc metrics for balsamic workflow."""
+    collected_metrics: list[dict] = collect_metrics(collect_qc_request)
+    samples: dict = get_formatted_sample_metrics(
+        collected_metrics=collected_metrics, sample_ids=collect_qc_request.sample_ids
+    )
+    case_metrics: dict = collected_metrics[collect_qc_request.case_id]
+    return Balsamic(
+        case_id=collect_qc_request.case_id,
+        samples=samples,
+        somalier=case_metrics[FileTag.SOMALIER.value],
+        workflow=collect_qc_request.workflow,
+    )

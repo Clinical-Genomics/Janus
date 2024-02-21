@@ -43,7 +43,8 @@ def test_parse_somalier(somalier_path: Path):
     parsed_content: dict = parse_somalier(file_path=somalier_path, case_id="testcase")
 
     # THEN the somalier files is parsed
-    assert isinstance(parsed_content["testcase"], Somalier)
+    case_contents: dict = parsed_content["testcase"]
+    assert isinstance(case_contents[FileTag.SOMALIER.value], Somalier)
 
 
 @pytest.mark.parametrize(

@@ -35,5 +35,7 @@ class BalsamicTGASample(BaseModel):
 
 
 class Balsamic(BaseModel):
+    case_id: str
     samples: list[BalsamicWGSSample | BalsamicTGASample]
     somalier: Somalier
+    workflow: str
