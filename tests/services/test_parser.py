@@ -4,7 +4,7 @@ from pathlib import Path
 from _pytest.fixtures import FixtureRequest
 import pytest
 
-from janus.mappers.mappers import MultiQCModels
+from janus.mappers.tag_to_models import TagToModel
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
@@ -44,7 +44,14 @@ def test_parse_somalier(somalier_path: Path):
 
 @pytest.mark.parametrize(
     "file_path,sample_ids,metrics_model",
-    [("alignment_summary_metrics_path", "test_sample_ids", "picard_alignment_summary_name")],
+    [
+        ("alignment_summary_metrics_path", "test_sample_ids", "picard_alignment_summary_tag"),
+        ("picard_hs_metrics_path", "test_sample_ids", "picard_hs_metrics_tag"),
+        ("picard_insert_size_path", "test_sample_ids", "picard_insert_size_tag"),
+        ("samtools_stats_path", "test_sample_ids", "samtools_stats_tag"),
+        ("picard_wgs_metrics_path", "test_sample_ids", "picard_wgs_metrics_tag"),
+        ("picard_dups_path", "test_sample_ids", "picard_dups_tag"),
+    ],
 )
 def test_parse_sample_metrics(
     file_path: str, sample_ids: str, metrics_model: str, request: FixtureRequest
@@ -57,9 +64,7 @@ def test_parse_sample_metrics(
     # WHEN parsing the specified metrics model
     parsed_content: dict[
         SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
-    ] = parse_sample_metrics(
-        file_path=file_path, sample_ids=sample_ids, metrics_model=metrics_model
-    )
+    ] = parse_sample_metrics(file_path=file_path, sample_ids=sample_ids, tag=metrics_model)
 
     # THEN the content is parsed
     for entry in parsed_content:
@@ -67,4 +72,4 @@ def test_parse_sample_metrics(
         content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
             parsed_content[entry]
         )
-        assert isinstance(content, MultiQCModels[metrics_model].value)
+        assert isinstance(content, TagToModel[metrics_model].value)

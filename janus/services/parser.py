@@ -2,8 +2,10 @@
 from itertools import product
 from pathlib import Path
 
-from janus.mappers.mappers import MultiQCModels
+
 from janus.io.read_json import read_json
+from janus.mappers.tag_to_models import TagToModel
+
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
@@ -19,7 +21,7 @@ from janus.models.multiqc.models import (
 
 
 def parse_sample_metrics(
-    file_path: Path, sample_ids: list[str], metrics_model: str
+    file_path: Path, sample_ids: list[str], tag: str, **kwargs
 ) -> dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary]:
     """Parse the content for a given file path into the corresponding model for each sample."""
     json_content: list[dict] = read_json(file_path)
@@ -28,11 +30,11 @@ def parse_sample_metrics(
     ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
-            parsed_content[sample_id] = MultiQCModels[metrics_model].value(**json_content[entry])
+            parsed_content[sample_id] = TagToModel[tag].value(**json_content[entry])
     return parsed_content
 
 
-def parse_somalier(file_path: Path) -> Somalier:
+def parse_somalier(file_path: Path, **kwargs) -> Somalier:
     """Parse the somalier multiqc file."""
     individuals: list[SomalierIndividual] = []
     comparison: SomalierComparison | None = None
@@ -45,7 +47,7 @@ def parse_somalier(file_path: Path) -> Somalier:
     return Somalier(individual=individuals, comparison=comparison)
 
 
-def parse_fastp(file_path: Path, sample_ids: list[str]) -> dict[Fastp]:
+def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]:
     """Parse the Fastp multiqc file."""
     json_content: list[dict] = read_json(file_path)
     parsed_content: dict[Fastp] = {}

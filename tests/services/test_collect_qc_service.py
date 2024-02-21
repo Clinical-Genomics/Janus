@@ -7,6 +7,7 @@ from janus.services.collect_qc_service import (
     get_sample_model,
     add_sample_id_to_model,
     prepare_sample_models,
+    collect_metrics_for_models,
 )
 
 
@@ -49,3 +50,19 @@ def test_prepare_sample_models(collect_qc_request: CollectQCRequest):
     for model in prepared_models:
         assert isinstance(model, type(BalsamicTGASample))
         assert model.sample_id in collect_qc_request.sample_ids
+
+
+def test_collect_metrics_for_models(collect_qc_request_balsamic_wgs):
+
+    # GIVEN a collect qc request
+
+    # WHEN collecting the metrics for the models
+    collected_metrics: list[dict] = collect_metrics_for_models(
+        file_paths_and_tags=collect_qc_request_balsamic_wgs.files,
+        sample_ids=collect_qc_request_balsamic_wgs.sample_ids,
+    )
+
+    # THEN the metrics are returned
+    for metric in collected_metrics:
+        for key, value in metric.items():
+            assert key in collect_qc_request_balsamic_wgs.sample_ids

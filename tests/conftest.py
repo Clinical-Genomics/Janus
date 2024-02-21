@@ -2,9 +2,9 @@
 from pathlib import Path
 
 import pytest
+from _pytest.fixtures import FixtureRequest
 
-from janus.mappers.mappers import MultiQCModels
-from janus.dto.collect_qc_request import CollectQCRequest
+from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag
 
 
 # Parser
@@ -36,6 +36,11 @@ def picard_hs_metrics_path(file_fixtures: Path) -> Path:
 
 
 @pytest.fixture
+def picard_wgs_metrics_path(file_fixtures: Path) -> Path:
+    return Path("fixtures", "files", "picard_wgsMetrics.json")
+
+
+@pytest.fixture
 def picard_insert_size_path(file_fixtures: Path) -> Path:
     return Path(file_fixtures, "picard_insertSize.json")
 
@@ -51,63 +56,73 @@ def somalier_path(file_fixtures: Path) -> Path:
 
 
 @pytest.fixture
+def picard_dups_path(file_fixtures: Path) -> Path:
+    return Path(file_fixtures, "picard_dups.json")
+
+
+@pytest.fixture
 def test_sample_ids() -> list[str]:
     return ["testsampleA", "testsampleB"]
 
 
 @pytest.fixture
-def picard_hs_metrics_name():
-    return MultiQCModels.PICARD_HS_METRICS.name
+def picard_hs_metrics_tag() -> str:
+    return "hsmetrics"
 
 
 @pytest.fixture
-def picard_wgs_metrics_name():
-    return MultiQCModels.PICARD_WGS_METRICS.name
+def picard_wgs_metrics_tag() -> str:
+    return "wgsmetrics"
 
 
 @pytest.fixture
-def picard_dups_name():
-    return MultiQCModels.PICARD_DUPS.name
+def picard_dups_tag() -> str:
+    return "dups"
 
 
 @pytest.fixture
-def picard_insert_size_name():
-    return MultiQCModels.PICARD_INSERT_SIZE.name
+def samtools_stats_tag() -> str:
+    return "stats"
 
 
 @pytest.fixture
-def picard_alignment_summary_name():
-    return MultiQCModels.PICARD_ALIGNMENT_SUMMARY.name
+def picard_insert_size_tag() -> str:
+    return "insertsize"
 
 
 @pytest.fixture
-def fastp_name():
-    return MultiQCModels.FASTP.name
+def picard_alignment_summary_tag() -> str:
+    return "alignmentsummarymetrics"
 
 
 @pytest.fixture
-def peddy_check_name():
-    return MultiQCModels.PEDDY_CHECK.name
+def fastp_tag() -> str:
+    return "fastp"
 
 
 @pytest.fixture
-def somalier_name():
-    return MultiQCModels.SOMALIER.name
+def peddy_check_tag() -> str:
+    return "PEDDY_CHECK"
 
 
 @pytest.fixture
-def picard_rna_seq_metrics_name():
-    return MultiQCModels.PICARDRNASEQMETRICS.name
+def somalier_tag() -> str:
+    return "somalier"
 
 
 @pytest.fixture
-def star_alignment_name():
-    return MultiQCModels.STARALIGNMENT.name
+def picard_rna_seq_metrics_tag() -> str:
+    return "PICARDRNASEQMETRICS"
 
 
 @pytest.fixture
-def rna_fusion_general_stats_name():
-    return MultiQCModels.RNAFUSIONGENERALSTATS.name
+def star_alignment_tag() -> str:
+    return "STARALIGNMENT"
+
+
+@pytest.fixture
+def rna_fusion_general_stats_tag() -> str:
+    return "RNAFUSIONGENERALSTATS"
 
 
 # Collect qc service
@@ -122,11 +137,53 @@ def wgs_prep_category() -> str:
 
 
 @pytest.fixture
-def collect_qc_request() -> CollectQCRequest:
+def test_file_tag_model() -> FilePathAndTag:
+    return FilePathAndTag(file_path="test_path", tag="test_tag")
+
+
+@pytest.fixture
+def collect_qc_request(test_file_tag_model: FilePathAndTag) -> CollectQCRequest:
     return CollectQCRequest(
         case_id="example_case_id",
         sample_ids=["sample1", "sample2"],
-        file_names=["file1.txt", "file2.txt"],
+        files=[test_file_tag_model],
         workflow="balsamic",
         prep_category="tga",
+    )
+
+
+@pytest.fixture
+def balsamic_files_wgs(
+        request: FixtureRequest
+) -> list[FilePathAndTag]:
+
+    fixtures: dict = {
+        "alignment_summary_metrics_path": "picard_alignment_summary_tag",
+        "picard_hs_metrics_path": "picard_hs_metrics_tag",
+        "picard_dups_path": "picard_dups_tag",
+        "picard_wgs_metrics_path": "picard_wgs_metrics_tag",
+        "picard_insert_size_path": "picard_insert_size_tag",
+        "somalier_path": "somalier_tag",
+        "fastp_path": "fastp_tag",
+        "samtools_stats_path": "samtools_stats_tag",
+    }
+
+    file_path_tags: dict = {request.getfixturevalue(key): request.getfixturevalue(value) for key, value in fixtures.items()}
+
+    files: list[FilePathAndTag] = []
+    for key, value in file_path_tags.items():
+        files.append(FilePathAndTag(file_path=key.name, tag=value))
+    return files
+
+
+@pytest.fixture
+def collect_qc_request_balsamic_wgs(
+    balsamic_files_wgs: list[FilePathAndTag], test_sample_ids: list[str]
+) -> CollectQCRequest:
+    return CollectQCRequest(
+        case_id="testcase",
+        sample_ids=test_sample_ids,
+        files=balsamic_files_wgs,
+        workflow="balsamic",
+        prep_category="wgs",
     )

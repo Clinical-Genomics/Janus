@@ -8,3 +8,4 @@ class CollectQCResponse(BaseModel):
 
     case_id: str
     samples: list[BalsamicWGSSample | BalsamicTGASample]
+    workflow: str

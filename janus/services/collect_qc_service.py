@@ -1,6 +1,9 @@
 """Module to hold the collect qc service."""
-from janus.mappers.mappers import WorkflowSampleModels
-from janus.dto.collect_qc_request import CollectQCRequest
+
+from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag
+from janus.mappers.tag_to_parse_function import TagToParseFunction
+from janus.mappers.workflow_to_tag import WorkflowToTag
+from janus.mappers.workflow_to_sample_model import WorkflowToSampleModel
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample
 
 
@@ -17,9 +20,14 @@ def get_sample_model(
 ) -> BalsamicTGASample | BalsamicWGSSample:
     """Return the sample model for a workflow and prep category if specified."""
     model_name: str = get_model_name(workflow=workflow, prep_category=prep_category)
-    for workflow_sample_model in WorkflowSampleModels:
-        if workflow_sample_model.name == model_name:
-            return workflow_sample_model.value
+    return WorkflowToSampleModel[model_name].value
+
+
+def get_workflow_models(workflow: str, prep_category: str) -> list[str]:
+    model_name: str = get_model_name(workflow=workflow, prep_category=prep_category)
+    for workflow in WorkflowToTag:
+        if workflow.name == model_name:
+            return workflow.value
 
 
 def add_sample_id_to_model(
@@ -45,6 +53,36 @@ def prepare_sample_models(collect_qc_request: CollectQCRequest):
     return samples
 
 
+def collect_metrics_for_models(
+    file_paths_and_tags: list[FilePathAndTag], sample_ids: list[str]
+) -> list[dict]:
+    """Return a list of parse functions."""
+    collected_metrics: list[callable] = []
+    for file_path_and_tag in file_paths_and_tags:
+        test = TagToParseFunction
+        parse_function = TagToParseFunction[file_path_and_tag.tag].value
+        collected_metrics.append(
+            parse_function(
+                file_path=file_path_and_tag.file_path,
+                sample_ids=sample_ids,
+                tag=file_path_and_tag.tag,
+            )
+        )
+    return collected_metrics
+
+
 def collect_qc(collect_qc_request: CollectQCRequest):
     """Collect the qc metrics for a sample."""
-    # For every sample
+
+    collected_metrics: list[dict] = collect_metrics_for_models(
+        file_paths_and_tags=collect_qc_request.files, sample_ids=collect_qc_request.sample_ids
+    )
+
+    # parse the data
+    parsed_metrics: list[dict] = []
+
+    # get the prepared sample models
+
+    # put the data into the proper sample models
+
+    # generate collect qc response

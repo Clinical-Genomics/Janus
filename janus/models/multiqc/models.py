@@ -1,6 +1,13 @@
 """Models for the MultiQC intermediate JSON files."""
 
-from pydantic import BaseModel, Field, validator, field_validator
+from pydantic import BaseModel, Field, validator
+
+
+def validate_float(value):
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return None
 
 
 class PicardDups(BaseModel):
@@ -163,7 +170,7 @@ class PicardHsMetrics(BaseModel):
     pct_exc_baseq: float = Field(..., alias="PCT_EXC_BASEQ")
     pct_exc_overlap: float = Field(..., alias="PCT_EXC_OVERLAP")
     pct_exc_off_target: float = Field(..., alias="PCT_EXC_OFF_TARGET")
-    fold_80_base_penalty: float = Field(..., alias="FOLD_80_BASE_PENALTY")
+    fold_80_base_penalty: float | None = Field(..., alias="FOLD_80_BASE_PENALTY")
     pct_target_bases_1x: float = Field(..., alias="PCT_TARGET_BASES_1X")
     pct_target_bases_2x: float = Field(..., alias="PCT_TARGET_BASES_2X")
     pct_target_bases_10x: float = Field(..., alias="PCT_TARGET_BASES_10X")
@@ -185,6 +192,8 @@ class PicardHsMetrics(BaseModel):
     gc_dropout: float = Field(..., alias="GC_DROPOUT")
     het_snp_sensitivity: float = Field(..., alias="HET_SNP_SENSITIVITY")
     het_snp_q: float = Field(..., alias="HET_SNP_Q")
+
+    validate_float = validator("fold_80_base_penalty", pre=True, always=True)(validate_float)
 
 
 class PicardAlignmentSummary(BaseModel):

@@ -8,23 +8,29 @@ from janus.models.multiqc.models import (
     PicardHsMetrics,
     PicardInsertSize,
     PicardWGSMetrics,
+    SamtoolsStats,
+    Fastp,
 )
 
 
 class BalsamicWGSSample(BaseModel):
     sample_id: str
-    picard_alignment_summary: PicardAlignmentSummary | None
-    picard_dups: PicardDups | None
-    picard_wgs_metrics: PicardWGSMetrics | None
-    picard_hs_metrics: PicardHsMetrics | None
-    picard_insert_size: PicardInsertSize | None
+    alignmentsummarymetrics: PicardAlignmentSummary | None
+    dups: PicardDups | None
+    wgsmetrics: PicardWGSMetrics | None
+    hsmetrics: PicardHsMetrics | None
+    insertsize: PicardInsertSize | None
     somalier: Somalier | None
+    stats: SamtoolsStats
+    fastp: Fastp
 
 
 class BalsamicTGASample(BaseModel):
     sample_id: str
-    picard_alignment_summary: PicardAlignmentSummary | None
-    picard_dups: PicardDups | None
-    picard_hs_metrics: PicardHsMetrics | None
-    picard_insert_size: PicardInsertSize | None
+    alignmentsummarymetrics: PicardAlignmentSummary | None
+    dups: PicardDups | None
+    hsmetrics: PicardHsMetrics | None
+    insertsize: PicardInsertSize | None
     somalier: Somalier | None
+    stats: SamtoolsStats
+    fastp: Fastp
