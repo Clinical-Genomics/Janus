@@ -14,7 +14,7 @@ collect_qc_router = APIRouter()
     response_description="Collect qc metrics for a case.",
     response_model=CollectQCResponse,
 )
-def collect_qc(collect_request: CollectQCRequest = Body(...)) -> :
+def collect_qc(collect_request: CollectQCRequest = Body(...)):
     """Create a case document in the database."""
     collector = workflow_to_collector[collect_request.workflow]
     collected_metrics: Balsamic = collector(collect_request)
