@@ -33,7 +33,7 @@ def format_sample_metrics(collected_metrics: list[dict], sample_id: str) -> dict
     return sample_metrics
 
 
-def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list[str]):
+def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list[str]) -> dict:
     """Get formatted sample metrics."""
     formatted_sample_metrics: list = []
     for sample_id in sample_ids:
@@ -44,13 +44,23 @@ def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list
     return {"samples": formatted_sample_metrics}
 
 
+def get_case_metrics(collected_metrics: list[dict], case_id: str) -> dict:
+    """Get case metrics."""
+    case_metrics: list = []
+    for metric in collected_metrics:
+        for key in metric.keys():
+            if key == case_id:
+                case_metrics.append(metric)
+    return {case_id: case_metrics}
+
+
 def collect_balsamic_metrics(collect_qc_request: CollectQCRequest) -> Balsamic:
     """Collect multiqc metrics for balsamic workflow."""
     collected_metrics: list[dict] = collect_metrics(collect_qc_request)
     samples: dict = get_formatted_sample_metrics(
         collected_metrics=collected_metrics, sample_ids=collect_qc_request.sample_ids
     )
-    case_metrics: dict = collected_metrics[collect_qc_request.case_id]
+    case_metrics: dict = get_case_metrics(collected_metrics= collected_metrics,case_id= collect_qc_request.case_id)
     return Balsamic(
         case_id=collect_qc_request.case_id,
         samples=samples,
