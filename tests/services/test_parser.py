@@ -50,7 +50,11 @@ def test_parse_somalier(somalier_path: Path):
 @pytest.mark.parametrize(
     "file_path,sample_ids,tag",
     [
-        ("alignment_summary_metrics_path", "test_sample_ids", "picard_alignment_summary_tag"),
+        (
+            "alignment_summary_metrics_path",
+            "test_sample_ids",
+            "picard_alignment_summary_tag",
+        ),
         ("picard_hs_metrics_path", "test_sample_ids", "picard_hs_metrics_tag"),
         ("picard_insert_size_path", "test_sample_ids", "picard_insert_size_tag"),
         ("samtools_stats_path", "test_sample_ids", "samtools_stats_tag"),
