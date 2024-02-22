@@ -17,6 +17,7 @@ from janus.models.multiqc.models import (
 from janus.services.parser import parse_fastp, parse_somalier, parse_sample_metrics
 
 
+
 def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
 
     # GIVEN a file path and sample ids

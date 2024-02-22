@@ -5,6 +5,7 @@ import pytest
 from _pytest.fixtures import FixtureRequest
 
 from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag
+from janus.services.collect_qc_service import CollectQCService
 
 
 # Parser
@@ -188,3 +189,8 @@ def collect_qc_request_balsamic_wgs(
         workflow="balsamic",
         prep_category="wgs",
     )
+
+
+@pytest.fixture
+def collect_balsamic_qc_service(collect_qc_request_balsamic_wgs: CollectQCRequest) -> CollectQCService:
+    return CollectQCService(collect_qc_request_balsamic_wgs)
