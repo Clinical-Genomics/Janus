@@ -57,7 +57,7 @@ def get_case_metrics(collected_metrics: list[dict], case_id: str) -> dict:
 def extract_somalier(case_metrics: dict) -> dict:
     """Extract somalier metrics from case metrics."""
     for metric in case_metrics:
-        somalier = metric[FileTag.SOMALIER.value]
+        somalier = metric[FileTag.SOMALIER]
         if not somalier:
             raise ValueError("No Somalier entry found.")
         return somalier

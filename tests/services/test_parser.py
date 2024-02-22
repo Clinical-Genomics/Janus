@@ -29,7 +29,7 @@ def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
         assert entry in test_sample_ids
         sample_metrics = parsed_content[entry]
         for metrics_tag in parsed_content[entry]:
-            assert metrics_tag == FileTag.FASTP.value
+            assert metrics_tag == FileTag.FASTP
             assert isinstance(sample_metrics[metrics_tag], Fastp)
             content: Fastp = sample_metrics[metrics_tag]
             assert content.after_filtering.total_reads > 0
@@ -44,7 +44,7 @@ def test_parse_somalier(somalier_path: Path):
 
     # THEN the somalier files is parsed
     case_contents: dict = parsed_content["testcase"]
-    assert isinstance(case_contents[FileTag.SOMALIER.value], Somalier)
+    assert isinstance(case_contents[FileTag.SOMALIER], Somalier)
 
 
 @pytest.mark.parametrize(

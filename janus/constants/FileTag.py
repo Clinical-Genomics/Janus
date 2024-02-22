@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class FileTag(Enum):
+class FileTag(StrEnum):
     """File tags."""
 
     HS_METRICS: str = "hsmetrics"

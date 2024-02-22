@@ -47,7 +47,7 @@ def parse_somalier(file_path: Path, case_id: str, **kwargs) -> dict[str, Somalie
         else:
             individuals.append(SomalierIndividual(**json_content[entry]))
     somalier_content: dict = {
-        FileTag.SOMALIER.value: Somalier(individual=individuals, comparison=comparison)
+        FileTag.SOMALIER: Somalier(individual=individuals, comparison=comparison)
     }
     return {case_id: somalier_content}
 
@@ -65,7 +65,7 @@ def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]
                 **json_content[entry]["summary"]["after_filtering"]
             )
             parsed_content[sample_id] = {
-                FileTag.FASTP.value: Fastp(
+                FileTag.FASTP: Fastp(
                     before_filtering=before_filtering, after_filtering=after_filtering
                 )
             }
