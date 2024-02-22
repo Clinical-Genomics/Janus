@@ -84,11 +84,10 @@ class CollectQCService:
 
     def get_workflow_collector(self) -> callable:
         """Return the collect function for the workflow."""
-        workflow_to_collector = {
-            "balsamic" : self.collect_balsamic_metrics()
-        }
+        workflow_to_collector = {"balsamic": self.collect_balsamic_metrics()}
         return workflow_to_collector[self.request.workflow]
 
     def collect_qc_metrics_for_request(self):
+        """Collect the qc metrics requested by the external source."""
         workflow_collector: callable = self.get_workflow_collector()
         return workflow_collector

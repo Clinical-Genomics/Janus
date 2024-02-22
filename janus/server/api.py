@@ -20,4 +20,3 @@ def collect_qc(collect_request: CollectQCRequest = Body(...)):
     service = CollectQCService(collect_request)
     collected_qc_metrics = service.collect_qc_metrics_for_request()
     return CollectQCResponse(**collected_qc_metrics)
-

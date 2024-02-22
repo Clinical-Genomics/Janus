@@ -17,7 +17,6 @@ from janus.models.multiqc.models import (
 from janus.services.parser import parse_fastp, parse_somalier, parse_sample_metrics
 
 
-
 def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
 
     # GIVEN a file path and sample ids
@@ -80,7 +79,7 @@ def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request
         sample_metrics = parsed_content[entry]
         for metrics_tag in parsed_content[entry]:
             assert tag == metrics_tag
-            content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
-                sample_metrics[metrics_tag]
-            )
+            content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = sample_metrics[
+                metrics_tag
+            ]
             assert isinstance(content, TagToModel[tag].value)

@@ -192,5 +192,7 @@ def collect_qc_request_balsamic_wgs(
 
 
 @pytest.fixture
-def collect_balsamic_qc_service(collect_qc_request_balsamic_wgs: CollectQCRequest) -> CollectQCService:
+def collect_balsamic_qc_service(
+    collect_qc_request_balsamic_wgs: CollectQCRequest,
+) -> CollectQCService:
     return CollectQCService(collect_qc_request_balsamic_wgs)
