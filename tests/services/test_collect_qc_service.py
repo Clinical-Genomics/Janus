@@ -26,7 +26,7 @@ def test_collect_balsamic_metrics(collect_balsamic_qc_service):
     # GIVEN a collect qc request for a balsamic workflow
 
     # WHEN collecting the qc metrics
-    balsamic_metrics: Balsamic = collect_balsamic_qc_service.collect_balsamic_metrics()
+    balsamic_metrics: Balsamic = collect_balsamic_qc_service.collect_qc_metrics_for_request()
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, Balsamic)
