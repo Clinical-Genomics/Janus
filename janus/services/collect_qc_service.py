@@ -27,13 +27,13 @@ def format_sample_metrics(collected_metrics: list[dict], sample_id: str) -> dict
     """Format the metrics for a sample."""
     sample_metrics: dict = {"sample_id": sample_id}
     for collected_metric in collected_metrics:
-        for metric_tag, metric in collected_metric.items():
-            if metric_tag == sample_id:
-                sample_metrics[metric_tag] = metric
+        for sample, metric in collected_metric.items():
+            if sample == sample_id:
+                sample_metrics.update(metric)
     return sample_metrics
 
 
-def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list[str]) -> dict:
+def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list[str]) -> list:
     """Get formatted sample metrics."""
     formatted_sample_metrics: list = []
     for sample_id in sample_ids:
@@ -41,7 +41,7 @@ def get_formatted_sample_metrics(collected_metrics: list[dict], sample_ids: list
             collected_metrics=collected_metrics, sample_id=sample_id
         )
         formatted_sample_metrics.append(collected_sample_metrics)
-    return {"samples": formatted_sample_metrics}
+    return formatted_sample_metrics
 
 
 def get_case_metrics(collected_metrics: list[dict], case_id: str) -> dict:
@@ -50,22 +50,32 @@ def get_case_metrics(collected_metrics: list[dict], case_id: str) -> dict:
     for metric in collected_metrics:
         for key in metric.keys():
             if key == case_id:
-                case_metrics.append(metric)
+                case_metrics.append(metric[key])
     return {case_id: case_metrics}
+
+
+def extract_somalier(case_metrics: dict) -> dict:
+    """Extract somalier metrics from case metrics."""
+    for metric in case_metrics:
+        somalier = metric[FileTag.SOMALIER.value]
+        if not somalier:
+            raise ValueError("No Somalier entry found.")
+        return somalier
 
 
 def collect_balsamic_metrics(collect_qc_request: CollectQCRequest) -> Balsamic:
     """Collect multiqc metrics for balsamic workflow."""
     collected_metrics: list[dict] = collect_metrics(collect_qc_request)
-    samples: dict = get_formatted_sample_metrics(
+    sample_metrics: list = get_formatted_sample_metrics(
         collected_metrics=collected_metrics, sample_ids=collect_qc_request.sample_ids
     )
     case_metrics: dict = get_case_metrics(
         collected_metrics=collected_metrics, case_id=collect_qc_request.case_id
     )
+    somalier = extract_somalier(case_metrics[collect_qc_request.case_id])
     return Balsamic(
         case_id=collect_qc_request.case_id,
-        samples=samples,
-        somalier=case_metrics[FileTag.SOMALIER.value],
+        samples=sample_metrics,
+        somalier=somalier,
         workflow=collect_qc_request.workflow,
     )
