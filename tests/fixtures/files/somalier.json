@@ -1,6 +1,6 @@
 {
-    "righttoucan_NORMAL": {
-        "family_id": "righttoucan_NORMAL",
+    "testcase_NORMAL": {
+        "family_id": "testcase_NORMAL",
         "paternal_id": -9.0,
         "maternal_id": -9.0,
         "sex": -9.0,
@@ -25,8 +25,8 @@
         "Y_depth_mean": 129.75,
         "Y_n": 4.0
     },
-    "righttoucan_TUMOR": {
-        "family_id": "righttoucan_TUMOR",
+    "testcase_TUMOR": {
+        "family_id": "testcase_TUMOR",
         "paternal_id": -9.0,
         "maternal_id": -9.0,
         "sex": -9.0,
@@ -51,7 +51,7 @@
         "Y_depth_mean": 270.33,
         "Y_n": 3.0
     },
-    "righttoucan_NORMAL*righttoucan_TUMOR": {
+    "testcase_NORMAL*testcase_TUMOR": {
         "relatedness": 1.0,
         "ibs0": 0.0,
         "ibs2": 312.0,
