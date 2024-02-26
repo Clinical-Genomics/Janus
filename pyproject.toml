@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cg-janus"
-version = "0.1.11"
+version = "0.1.12"
 description = ""
 authors = ["Christian Oertlin <c.oertlin@gmail.com>"]
 homepage = "https://github.com/Clinical-Genomics/janus"
