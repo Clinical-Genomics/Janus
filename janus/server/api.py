@@ -1,26 +1,22 @@
-from http import HTTPStatus
-
 from fastapi import APIRouter, Body
-from starlette.responses import JSONResponse
+from fastapi.responses import JSONResponse
 
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
+from janus.mappers.workflow_to_collector import workflow_to_collector
+from janus.models.workflow.models import Balsamic
 from janus.services.collect_qc_service import CollectQCService
-from pydantic import ValidationError
 
 collect_qc_router = APIRouter()
 
 
-@collect_qc_router.post(
+@collect_qc_router.get(
     "/collect_qc/",
     response_description="Collect qc metrics for a case.",
     response_model=CollectQCResponse,
 )
-def collect_qc(collect_request: CollectQCRequest = Body(...)) -> str | JSONResponse:
-    """Collect qc metrics for the external request."""
+def collect_qc(collect_request: CollectQCRequest = Body(...)):
+    """Create a case document in the database."""
     service = CollectQCService(collect_request)
-    try:
-        collected_qc_metrics = service.collect_qc_metrics_for_request()
-        return CollectQCResponse(**collected_qc_metrics).model_dump_json()
-    except (ValueError, FileNotFoundError, ValidationError) as error:
-        return JSONResponse(content=repr(error), status_code=HTTPStatus.NOT_FOUND)
+    collected_qc_metrics = service.collect_qc_metrics_for_request()
+    return CollectQCResponse(**collected_qc_metrics)
