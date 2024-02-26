@@ -17,8 +17,7 @@ COPY . /janus
 
 # install dependencies
 RUN pip install poetry
-RUN poetry config virtualenvs.create false \
-  && poetry install
+RUN poetry install
 
 
 # Expose the port that the application listens on.
