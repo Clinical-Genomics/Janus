@@ -9,6 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
+ENV GUNICORN_WORKERS=1
+ENV GUNICORN_THREADS=1
+ENV GUNICORN_BIND="0.0.0.0:8000"
+ENV GUNICORN_TIMEOUT=400
+
 # Set the working directory
 WORKDIR /janus
 
@@ -25,5 +30,15 @@ RUN poetry config virtualenvs.create false \
 EXPOSE 8000
 
 # Run the application.
-# Run the application using uvicorn
-CMD ["python", "-m", "uvicorn", "janus.server.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD gunicorn \
+    --workers=$GUNICORN_WORKERS \
+    --bind=$GUNICORN_BIND  \
+    --threads=$GUNICORN_THREADS \
+    --timeout=$GUNICORN_TIMEOUT \
+    --proxy-protocol \
+    --forwarded-allow-ips="10.0.2.100,127.0.0.1" \
+    --log-syslog \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level="debug" \
+    janus.server.app:app
