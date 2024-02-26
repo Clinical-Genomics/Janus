@@ -10,10 +10,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set the working directory
-WORKDIR /janus
+WORKDIR /home/janus
 
 # Copy the directory
-COPY . /janus
+COPY . /home/janus
 
 # install dependencies
 RUN pip install poetry
