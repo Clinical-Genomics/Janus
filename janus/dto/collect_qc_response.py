@@ -6,4 +6,5 @@ from janus.models.workflow.models import BalsamicTGASample, BalsamicWGSSample, B
 class CollectQCResponse(BaseModel):
     """Collect QC response model."""
 
-    workflow: Balsamic
+    case_id: str
+    case_info: Balsamic

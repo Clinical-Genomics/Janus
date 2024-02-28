@@ -1,6 +1,7 @@
 """Module for the workflow models."""
 from pydantic import BaseModel
 
+from janus.dto.collect_qc_request import WorkflowInfo
 from janus.models.multiqc.models import (
     Somalier,
     PicardAlignmentSummary,
@@ -35,7 +36,6 @@ class BalsamicTGASample(BaseModel):
 
 
 class Balsamic(BaseModel):
-    case_id: str
     samples: list[BalsamicWGSSample | BalsamicTGASample]
     somalier: Somalier
-    workflow: str
+    workflow: WorkflowInfo

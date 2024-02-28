@@ -1,6 +1,7 @@
 """Module to hold the collect qc service."""
 from janus.constants.FileTag import FileTag
 from janus.dto.collect_qc_request import CollectQCRequest
+from janus.dto.collect_qc_response import CollectQCResponse
 from janus.mappers.tag_to_parse_function import tag_to_parse_function
 from janus.models.workflow.models import Balsamic
 
@@ -76,18 +77,18 @@ class CollectQCService:
         )
         somalier = self.extract_somalier(case_metrics[self.request.case_id])
         return Balsamic(
-            case_id=self.request.case_id,
             samples=sample_metrics,
             somalier=somalier,
-            workflow=self.request.workflow,
+            workflow=self.request.workflow_info,
         )
 
-    def get_workflow_collector(self) -> callable:
+    def get_case_info_for_workflow(self) -> callable:
         """Return the collect function for the workflow."""
-        workflow_to_collector = {"balsamic": self.collect_balsamic_metrics()}
-        return workflow_to_collector[self.request.workflow]
+        case_info_workflow_collector = {"balsamic": self.collect_balsamic_metrics()}
+        return case_info_workflow_collector[self.request.workflow_info.workflow]
 
-    def collect_qc_metrics_for_request(self):
+    def collect_qc_metrics_for_request(self) -> CollectQCResponse:
         """Collect the qc metrics requested by the external source."""
-        workflow_collector: callable = self.get_workflow_collector()
-        return workflow_collector
+        case_info: callable = self.get_case_info_for_workflow()
+        qc_metrics = CollectQCResponse(case_id=self.request.case_id, case_info=case_info)
+        return qc_metrics

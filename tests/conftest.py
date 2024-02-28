@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from _pytest.fixtures import FixtureRequest
 
-from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag
+from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
 from janus.services.collect_qc_service import CollectQCService
 
 
@@ -186,7 +186,7 @@ def collect_qc_request_balsamic_wgs(
         case_id="testcase",
         sample_ids=test_sample_ids,
         files=balsamic_files_wgs,
-        workflow="balsamic",
+        workflow_info=WorkflowInfo(workflow ="balsamic", version ="0"),
         prep_category="wgs",
     )
 

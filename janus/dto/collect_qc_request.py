@@ -3,6 +3,11 @@
 from pydantic import BaseModel
 
 
+class WorkflowInfo(BaseModel):
+    workflow: str
+    version: str
+
+
 class FilePathAndTag(BaseModel):
     """Model for the file path and its associated tag."""
 
@@ -16,5 +21,5 @@ class CollectQCRequest(BaseModel):
     case_id: str
     sample_ids: list[str]
     files: list[FilePathAndTag]
-    workflow: str
+    workflow_info: WorkflowInfo
     prep_category: str
