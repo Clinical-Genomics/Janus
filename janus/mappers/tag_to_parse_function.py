@@ -1,6 +1,7 @@
 from janus.constants.FileTag import FileTag
 from janus.services.parser import parse_sample_metrics, parse_fastp, parse_somalier
 
+
 tag_to_parse_function: dict = {
     FileTag.HS_METRICS: parse_sample_metrics,
     FileTag.WGS_METRICS: parse_sample_metrics,

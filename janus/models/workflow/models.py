@@ -1,4 +1,5 @@
 """Module for the workflow models."""
+
 from pydantic import BaseModel, Field
 
 from janus.constants.FileTag import FileTag

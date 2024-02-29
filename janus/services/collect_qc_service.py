@@ -1,4 +1,5 @@
 """Module to hold the collect qc service."""
+
 from janus.constants.FileTag import FileTag
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
