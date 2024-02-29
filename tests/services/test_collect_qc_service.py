@@ -1,9 +1,6 @@
 """Tests for the collect qc service."""
 
-from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
-from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample, Balsamic
-from janus.services.collect_qc_service import CollectQCService
 
 
 def test_collect_metrics_for_models(collect_balsamic_qc_service):

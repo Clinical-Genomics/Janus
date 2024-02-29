@@ -22,4 +22,3 @@ class CollectQCRequest(BaseModel):
     sample_ids: list[str]
     files: list[FilePathAndTag]
     workflow_info: WorkflowInfo
-    prep_category: str

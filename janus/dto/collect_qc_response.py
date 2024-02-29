@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from janus.models.workflow.models import BalsamicTGASample, BalsamicWGSSample, Balsamic
+from janus.models.workflow.balsamic import Balsamic
 
 
 class CollectQCResponse(BaseModel):
