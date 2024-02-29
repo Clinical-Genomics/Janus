@@ -1,10 +1,11 @@
 """Module to hold the collect qc service."""
 
 from janus.constants.FileTag import FileTag
+from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
 from janus.mappers.tag_to_parse_function import tag_to_parse_function
-from janus.models.workflow.models import Balsamic
+from janus.models.workflow.balsamic import Balsamic
 
 
 class CollectQCService:
@@ -85,7 +86,12 @@ class CollectQCService:
 
     def get_case_info_for_workflow(self) -> callable:
         """Return the collect function for the workflow."""
-        case_info_workflow_collector = {"balsamic": self.collect_balsamic_metrics()}
+        case_info_workflow_collector = {
+            Workflow.BALSAMIC: self.collect_balsamic_metrics(),
+            Workflow.BALSAMIC_QC: self.collect_balsamic_metrics(),
+            Workflow.BALSAMIC_PON: self.collect_balsamic_metrics(),
+            Workflow.BALSAMIC_UMI: self.collect_balsamic_metrics(),
+        }
         return case_info_workflow_collector[self.request.workflow_info.workflow]
 
     def collect_qc_metrics_for_request(self) -> CollectQCResponse:

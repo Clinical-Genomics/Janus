@@ -125,11 +125,6 @@ def balsamic_workflow() -> str:
 
 
 @pytest.fixture
-def wgs_prep_category() -> str:
-    return "wgs"
-
-
-@pytest.fixture
 def test_file_tag_model() -> FilePathAndTag:
     return FilePathAndTag(file_path="test_path", tag="test_tag")
 
@@ -141,7 +136,6 @@ def collect_qc_request(test_file_tag_model: FilePathAndTag) -> CollectQCRequest:
         sample_ids=["sample1", "sample2"],
         files=[test_file_tag_model],
         workflow="balsamic",
-        prep_category="tga",
     )
 
 
@@ -179,7 +173,6 @@ def collect_qc_request_balsamic_wgs(
         sample_ids=test_sample_ids,
         files=balsamic_files_wgs,
         workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
-        prep_category="wgs",
     )
 
 
