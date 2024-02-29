@@ -1,11 +1,12 @@
 """Module for the workflow models."""
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
+from janus.constants.FileTag import FileTag
 from janus.dto.collect_qc_request import WorkflowInfo
 from janus.models.multiqc.models import (
     Somalier,
     PicardAlignmentSummary,
-    PicardDups,
+    PicardDuplicates,
     PicardHsMetrics,
     PicardInsertSize,
     PicardWGSMetrics,
@@ -16,23 +17,27 @@ from janus.models.multiqc.models import (
 
 class BalsamicWGSSample(BaseModel):
     sample_id: str
-    alignmentsummarymetrics: PicardAlignmentSummary | None
-    dups: PicardDups | None
-    wgsmetrics: PicardWGSMetrics | None
-    hsmetrics: PicardHsMetrics | None
-    insertsize: PicardInsertSize | None
-    stats: SamtoolsStats
-    fastp: Fastp
+    alignment_summary_metrics: PicardAlignmentSummary | None = Field(
+        ..., alias=FileTag.ALIGNMENT_SUMMARY_METRICS
+    )
+    duplicates: PicardDuplicates | None = Field(..., alias=FileTag.DUPLICATES)
+    wgs_metrics: PicardWGSMetrics | None = Field(..., alias=FileTag.WGS_METRICS)
+    hs_metrics: PicardHsMetrics | None = Field(..., alias=FileTag.HS_METRICS)
+    insert_size: PicardInsertSize | None = Field(..., alias=FileTag.INSERT_SIZE)
+    samtools_stats: SamtoolsStats = Field(..., alias=FileTag.SAMTOOLS_STATS)
+    fastp: Fastp = Field(..., alias=FileTag.FASTP)
 
 
 class BalsamicTGASample(BaseModel):
     sample_id: str
-    alignmentsummarymetrics: PicardAlignmentSummary | None
-    dups: PicardDups | None
-    hsmetrics: PicardHsMetrics | None
-    insertsize: PicardInsertSize | None
-    stats: SamtoolsStats
-    fastp: Fastp
+    alignment_summary_metrics: PicardAlignmentSummary | None = Field(
+        ..., alias=FileTag.ALIGNMENT_SUMMARY_METRICS
+    )
+    duplicates: PicardDuplicates | None = Field(..., alias=FileTag.DUPLICATES)
+    hs_metrics: PicardHsMetrics | None = Field(..., alias=FileTag.HS_METRICS)
+    insert_size: PicardInsertSize | None = Field(..., alias=FileTag.INSERT_SIZE)
+    samtools_stats: SamtoolsStats = Field(..., alias=FileTag.SAMTOOLS_STATS)
+    fastp: Fastp = Field(..., alias=FileTag.FASTP)
 
 
 class Balsamic(BaseModel):

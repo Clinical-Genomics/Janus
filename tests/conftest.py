@@ -68,32 +68,32 @@ def test_sample_ids() -> list[str]:
 
 @pytest.fixture
 def picard_hs_metrics_tag() -> str:
-    return "hsmetrics"
+    return "picard-hs"
 
 
 @pytest.fixture
 def picard_wgs_metrics_tag() -> str:
-    return "wgsmetrics"
+    return "picard-wgs"
 
 
 @pytest.fixture
 def picard_dups_tag() -> str:
-    return "dups"
+    return "picard-duplicates"
 
 
 @pytest.fixture
 def samtools_stats_tag() -> str:
-    return "stats"
+    return "samtools-stats"
 
 
 @pytest.fixture
 def picard_insert_size_tag() -> str:
-    return "insertsize"
+    return "picard-insert-size"
 
 
 @pytest.fixture
 def picard_alignment_summary_tag() -> str:
-    return "alignmentsummarymetrics"
+    return "picard-alignment"
 
 
 @pytest.fixture
@@ -118,7 +118,7 @@ def picard_rna_seq_metrics_tag() -> str:
 
 @pytest.fixture
 def star_alignment_tag() -> str:
-    return "STARALIGNMENT"
+    return "star"
 
 
 @pytest.fixture
@@ -186,7 +186,7 @@ def collect_qc_request_balsamic_wgs(
         case_id="testcase",
         sample_ids=test_sample_ids,
         files=balsamic_files_wgs,
-        workflow_info=WorkflowInfo(workflow ="balsamic", version ="0"),
+        workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
         prep_category="wgs",
     )
 
