@@ -4,7 +4,8 @@ from pathlib import Path
 import pytest
 from _pytest.fixtures import FixtureRequest
 
-from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag
+from janus.constants.FileTag import FileTag
+from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
 from janus.services.collect_qc_service import CollectQCService
 
 
@@ -68,57 +69,47 @@ def test_sample_ids() -> list[str]:
 
 @pytest.fixture
 def picard_hs_metrics_tag() -> str:
-    return "hsmetrics"
+    return FileTag.HS_METRICS
 
 
 @pytest.fixture
 def picard_wgs_metrics_tag() -> str:
-    return "wgsmetrics"
+    return FileTag.WGS_METRICS
 
 
 @pytest.fixture
 def picard_dups_tag() -> str:
-    return "dups"
+    return FileTag.DUPLICATES
 
 
 @pytest.fixture
 def samtools_stats_tag() -> str:
-    return "stats"
+    return FileTag.SAMTOOLS_STATS
 
 
 @pytest.fixture
 def picard_insert_size_tag() -> str:
-    return "insertsize"
+    return FileTag.INSERT_SIZE
 
 
 @pytest.fixture
 def picard_alignment_summary_tag() -> str:
-    return "alignmentsummarymetrics"
+    return FileTag.ALIGNMENT_SUMMARY_METRICS
 
 
 @pytest.fixture
 def fastp_tag() -> str:
-    return "fastp"
-
-
-@pytest.fixture
-def peddy_check_tag() -> str:
-    return "PEDDY_CHECK"
+    return FileTag.FASTP
 
 
 @pytest.fixture
 def somalier_tag() -> str:
-    return "somalier"
-
-
-@pytest.fixture
-def picard_rna_seq_metrics_tag() -> str:
-    return "PICARDRNASEQMETRICS"
+    return FileTag.SOMALIER
 
 
 @pytest.fixture
 def star_alignment_tag() -> str:
-    return "STARALIGNMENT"
+    return FileTag.STAR_ALIGNMENT
 
 
 @pytest.fixture
@@ -186,7 +177,7 @@ def collect_qc_request_balsamic_wgs(
         case_id="testcase",
         sample_ids=test_sample_ids,
         files=balsamic_files_wgs,
-        workflow="balsamic",
+        workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
         prep_category="wgs",
     )
 

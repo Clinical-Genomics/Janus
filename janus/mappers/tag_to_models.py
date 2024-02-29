@@ -1,29 +1,25 @@
 from enum import Enum
 
+from janus.constants.FileTag import FileTag
 from janus.models.multiqc.models import (
     PicardHsMetrics,
     PicardWGSMetrics,
-    PicardDups,
+    PicardDuplicates,
     PicardInsertSize,
     PicardAlignmentSummary,
     Fastp,
-    PeddyCheck,
     Somalier,
-    PicardRNASeqMetrics,
-    STARAlignment,
-    RNAfusionGeneralStats,
     SamtoolsStats,
 )
 
 
-class TagToModel(Enum):
-    """Mapping for the multiqc models."""
-
-    hsmetrics: callable = PicardHsMetrics
-    wgsmetrics: callable = PicardWGSMetrics
-    dups: callable = PicardDups
-    insertsize: callable = PicardInsertSize
-    alignmentsummarymetrics: callable = PicardAlignmentSummary
-    fastp: callable = Fastp
-    somalier: callable = Somalier
-    stats: callable = SamtoolsStats
+tag_to_model = {
+    FileTag.HS_METRICS: PicardHsMetrics,
+    FileTag.WGS_METRICS: PicardWGSMetrics,
+    FileTag.DUPLICATES: PicardDuplicates,
+    FileTag.INSERT_SIZE: PicardInsertSize,
+    FileTag.FASTP: Fastp,
+    FileTag.ALIGNMENT_SUMMARY_METRICS: PicardAlignmentSummary,
+    FileTag.SOMALIER: Somalier,
+    FileTag.SAMTOOLS_STATS: SamtoolsStats,
+}

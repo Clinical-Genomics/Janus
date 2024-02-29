@@ -5,7 +5,7 @@ from pathlib import Path
 
 from janus.constants.FileTag import FileTag
 from janus.io.read_json import read_json
-from janus.mappers.tag_to_models import TagToModel
+from janus.mappers.tag_to_models import tag_to_model
 
 from janus.models.multiqc.models import (
     PicardInsertSize,
@@ -31,7 +31,7 @@ def parse_sample_metrics(
     ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
-            parsed_content[sample_id] = {tag: TagToModel[tag].value(**json_content[entry])}
+            parsed_content[sample_id] = {tag: tag_to_model[tag](**json_content[entry])}
     return parsed_content
 
 

@@ -10,7 +10,7 @@ def validate_float(value):
         return None
 
 
-class PicardDups(BaseModel):
+class PicardDuplicates(BaseModel):
     unpaired_reads_examined: float = Field(..., alias="UNPAIRED_READS_EXAMINED")
     read_pairs_examined: float = Field(..., alias="READ_PAIRS_EXAMINED")
     secondary_or_supplementary_reads: float = Field(..., alias="SECONDARY_OR_SUPPLEMENTARY_RDS")

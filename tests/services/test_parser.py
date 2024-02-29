@@ -5,7 +5,7 @@ from _pytest.fixtures import FixtureRequest
 import pytest
 
 from janus.constants.FileTag import FileTag
-from janus.mappers.tag_to_models import TagToModel
+from janus.mappers.tag_to_models import tag_to_model
 from janus.models.multiqc.models import (
     PicardInsertSize,
     SamtoolsStats,
@@ -82,4 +82,4 @@ def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request
             content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
                 sample_metrics[metrics_tag]
             )
-            assert isinstance(content, TagToModel[tag].value)
+            assert isinstance(content, tag_to_model[tag])
