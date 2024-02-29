@@ -89,7 +89,6 @@ class CollectQCService:
         case_info_workflow_collector = {
             Workflow.BALSAMIC: self.collect_balsamic_metrics(),
             Workflow.BALSAMIC_QC: self.collect_balsamic_metrics(),
-            Workflow.BALSAMIC_PON: self.collect_balsamic_metrics(),
             Workflow.BALSAMIC_UMI: self.collect_balsamic_metrics(),
         }
         return case_info_workflow_collector[self.request.workflow_info.workflow]
