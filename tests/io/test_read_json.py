@@ -1,4 +1,5 @@
 """Tests for reading files."""
+
 from pathlib import Path
 
 from janus.io.read_json import read_json
