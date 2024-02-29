@@ -1,4 +1,5 @@
 """Fixtures for the tests."""
+
 from pathlib import Path
 
 import pytest

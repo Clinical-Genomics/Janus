@@ -1,4 +1,5 @@
 """Tests for the collect qc service."""
+
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
 from janus.models.workflow.models import BalsamicWGSSample, BalsamicTGASample, Balsamic

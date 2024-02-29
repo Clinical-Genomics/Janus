@@ -1,4 +1,5 @@
 """Module that holds the parsing functionality."""
+
 from enum import Enum
 from itertools import product
 from pathlib import Path

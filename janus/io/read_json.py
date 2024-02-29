@@ -1,4 +1,5 @@
 """Read JSON module"""
+
 import json
 from pathlib import Path
 
