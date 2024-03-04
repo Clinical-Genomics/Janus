@@ -4,6 +4,7 @@ from janus.constants.FileTag import FileTag
 from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
+from janus.exceptions.exceptions import WorkflowNotSupportedError
 from janus.mappers.tag_to_parse_function import tag_to_parse_function
 from janus.models.workflow.balsamic import Balsamic
 
@@ -93,8 +94,15 @@ class CollectQCService:
         }
         return case_info_workflow_collector[self.request.workflow_info.workflow]
 
+    def is_supported_workflow(self):
+        return self.request.workflow_info.workflow in Workflow.values()
+
     def collect_qc_metrics_for_request(self) -> CollectQCResponse:
         """Collect the qc metrics requested by the external source."""
+        if not self.is_supported_workflow():
+            raise WorkflowNotSupportedError(
+                f"Janus does not support parsing of qc metrics for {self.request.workflow_info.workflow})"
+            )
         case_info: callable = self.get_case_info_for_workflow()
         qc_metrics = CollectQCResponse(case_id=self.request.case_id, case_info=case_info)
         return qc_metrics

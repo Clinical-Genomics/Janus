@@ -6,3 +6,7 @@ class JanusError(Exception):
 
 class ParseJSONError(JanusError):
     """Raises an error in case of an error when parsing a JSON file."""
+
+
+class WorkflowNotSupportedError(JanusError):
+    """Raises an error in case a request for an unsupported workflow was made."""
