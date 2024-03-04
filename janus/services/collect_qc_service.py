@@ -101,7 +101,7 @@ class CollectQCService:
         """Collect the qc metrics requested by the external source."""
         if not self.is_supported_workflow():
             raise WorkflowNotSupportedError(
-                f"Janus does not support parsing of qc metrics for {self.request.workflow_info.worklow})"
+                f"Janus does not support parsing of qc metrics for {self.request.workflow_info.workflow})"
             )
         case_info: callable = self.get_case_info_for_workflow()
         qc_metrics = CollectQCResponse(case_id=self.request.case_id, case_info=case_info)

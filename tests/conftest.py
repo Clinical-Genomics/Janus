@@ -181,3 +181,12 @@ def collect_balsamic_qc_service(
     collect_qc_request_balsamic_wgs: CollectQCRequest,
 ) -> CollectQCService:
     return CollectQCService(collect_qc_request_balsamic_wgs)
+
+
+@pytest.fixture
+def collect_qc_service_unsupported_workflow(
+    collect_qc_request_balsamic_wgs: CollectQCRequest,
+) -> CollectQCService:
+    request: CollectQCRequest = collect_qc_request_balsamic_wgs
+    request.workflow_info.workflow = "not_supported"
+    return CollectQCService(request)

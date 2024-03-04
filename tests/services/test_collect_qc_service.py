@@ -1,9 +1,13 @@
 """Tests for the collect qc service."""
 
+import pytest
+
 from janus.dto.collect_qc_response import CollectQCResponse
+from janus.exceptions.exceptions import WorkflowNotSupportedError
+from janus.services.collect_qc_service import CollectQCService
 
 
-def test_collect_metrics_for_models(collect_balsamic_qc_service):
+def test_collect_metrics_for_models(collect_balsamic_qc_service: CollectQCService):
 
     # GIVEN a collect qc request
     expected_keys: list[str] = [
@@ -21,7 +25,7 @@ def test_collect_metrics_for_models(collect_balsamic_qc_service):
             assert key in expected_keys
 
 
-def test_collect_balsamic_metrics(collect_balsamic_qc_service):
+def test_collect_balsamic_metrics(collect_balsamic_qc_service: CollectQCService):
     # GIVEN a collect qc request for a balsamic workflow
 
     # WHEN collecting the qc metrics
@@ -31,3 +35,13 @@ def test_collect_balsamic_metrics(collect_balsamic_qc_service):
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)
+
+
+def test_collect_unsupported_metrics(collect_qc_service_unsupported_workflow: CollectQCService):
+    # GIVEN a collect qc request for a balsamic workflow
+
+    # WHEN collecting the qc metrics
+
+    # THEN the metrics are returned
+    with pytest.raises(WorkflowNotSupportedError):
+        collect_qc_service_unsupported_workflow.collect_qc_metrics_for_request()
