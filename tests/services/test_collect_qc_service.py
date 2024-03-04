@@ -38,10 +38,10 @@ def test_collect_balsamic_metrics(collect_balsamic_qc_service: CollectQCService)
 
 
 def test_collect_unsupported_metrics(collect_qc_service_unsupported_workflow: CollectQCService):
-    # GIVEN a collect qc request for a balsamic workflow
+    # GIVEN a collect qc request for an unsupported workflow
 
     # WHEN collecting the qc metrics
 
-    # THEN the metrics are returned
+    # THEN an error is raised
     with pytest.raises(WorkflowNotSupportedError):
         collect_qc_service_unsupported_workflow.collect_qc_metrics_for_request()
