@@ -9,5 +9,5 @@ class Workflow(StrEnum):
     BALSAMIC_UMI: str = "balsamic-umi"
 
     @classmethod
-    def list(cls):
-        return list(map(lambda c: c.value, cls))
+    def values(cls) -> list[str]:
+        return [member.value for member in cls]

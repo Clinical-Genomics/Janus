@@ -9,4 +9,4 @@ class ParseJSONError(JanusError):
 
 
 class WorkflowNotSupportedError(JanusError):
-    """Raises an error in case when a request for an unsupported workflow was made."""
+    """Raises an error in case a request for an unsupported workflow was made."""

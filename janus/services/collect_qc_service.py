@@ -95,7 +95,7 @@ class CollectQCService:
         return case_info_workflow_collector[self.request.workflow_info.workflow]
 
     def is_supported_workflow(self):
-        return self.request.workflow_info.workflow in Workflow.list()
+        return self.request.workflow_info.workflow in Workflow.values()
 
     def collect_qc_metrics_for_request(self) -> CollectQCResponse:
         """Collect the qc metrics requested by the external source."""
