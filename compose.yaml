@@ -8,4 +8,4 @@ services:
       target: base
     ports:
       - "8000:8000"
-    command: ["python", "-m", "uvicorn", "janus.server.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["python", "-m", "gunicorn", "--worker-class uvicorn.workers.UvicornWorker janus.server.app:app"]
