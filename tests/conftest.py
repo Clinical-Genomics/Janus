@@ -165,6 +165,30 @@ def balsamic_files_wgs(request: FixtureRequest) -> list[FilePathAndTag]:
 
 
 @pytest.fixture
+def balsamic_files_tga(request: FixtureRequest) -> list[FilePathAndTag]:
+
+    fixtures: dict = {
+        "alignment_summary_metrics_path": "picard_alignment_summary_tag",
+        "picard_hs_metrics_path": "picard_hs_metrics_tag",
+        "picard_dups_path": "picard_dups_tag",
+        "picard_insert_size_path": "picard_insert_size_tag",
+        "somalier_path": "somalier_tag",
+        "fastp_path": "fastp_tag",
+        "samtools_stats_path": "samtools_stats_tag",
+    }
+
+    file_path_tags: dict = {
+        request.getfixturevalue(key): request.getfixturevalue(value)
+        for key, value in fixtures.items()
+    }
+
+    files: list[FilePathAndTag] = []
+    for key, value in file_path_tags.items():
+        files.append(FilePathAndTag(file_path=str(key), tag=value))
+    return files
+
+
+@pytest.fixture
 def collect_qc_request_balsamic_wgs(
     balsamic_files_wgs: list[FilePathAndTag], test_sample_ids: list[str]
 ) -> CollectQCRequest:
@@ -177,10 +201,29 @@ def collect_qc_request_balsamic_wgs(
 
 
 @pytest.fixture
-def collect_balsamic_qc_service(
+def collect_qc_request_balsamic_tga(
+    balsamic_files_tga: list[FilePathAndTag], test_sample_ids: list[str]
+) -> CollectQCRequest:
+    return CollectQCRequest(
+        case_id="testcase",
+        sample_ids=test_sample_ids,
+        files=balsamic_files_tga,
+        workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
+    )
+
+
+@pytest.fixture
+def collect_balsamic_qc_service_wgs(
     collect_qc_request_balsamic_wgs: CollectQCRequest,
 ) -> CollectQCService:
     return CollectQCService(collect_qc_request_balsamic_wgs)
+
+
+@pytest.fixture
+def collect_balsamic_qc_service_tga(
+    collect_qc_request_balsamic_tga: CollectQCRequest,
+) -> CollectQCService:
+    return CollectQCService(collect_qc_request_balsamic_tga)
 
 
 @pytest.fixture
