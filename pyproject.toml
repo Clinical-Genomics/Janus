@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cg-janus"
-version = "0.1.16"
+version = "0.1.17"
 description = ""
 authors = ["Christian Oertlin <c.oertlin@gmail.com>"]
 homepage = "https://github.com/Clinical-Genomics/janus"
@@ -16,8 +16,8 @@ wheel = "^0.42.0"
 twine = "^4.0.2"
 pytest = "^8.0.0"
 fastapi = "^0.109.2"
-uvicorn = "^0.27.1"
 gunicorn = "^21.2.0"
+uvicorn = "^0.27.1"
 
 
 [build-system]
