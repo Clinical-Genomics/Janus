@@ -208,7 +208,7 @@ def collect_qc_request_balsamic_tga(
         case_id="testcase",
         sample_ids=test_sample_ids,
         files=balsamic_files_tga,
-        workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
+        workflow_info=WorkflowInfo(workflow=Workflow.BALSAMIC.value, version="0"),
     )
 
 
