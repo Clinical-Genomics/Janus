@@ -130,9 +130,14 @@ def test_file_tag_model() -> FilePathAndTag:
 
 
 @pytest.fixture
-def collect_qc_request(test_file_tag_model: FilePathAndTag) -> CollectQCRequest:
+def test_case_id() -> str:
+    return "test_case"
+
+
+@pytest.fixture
+def collect_qc_request(test_file_tag_model: FilePathAndTag, test_case_id: str) -> CollectQCRequest:
     return CollectQCRequest(
-        case_id="example_case_id",
+        case_id=test_case_id,
         sample_ids=["sample1", "sample2"],
         files=[test_file_tag_model],
         workflow="balsamic",
@@ -190,10 +195,10 @@ def balsamic_files_tga(request: FixtureRequest) -> list[FilePathAndTag]:
 
 @pytest.fixture
 def collect_qc_request_balsamic_wgs(
-    balsamic_files_wgs: list[FilePathAndTag], test_sample_ids: list[str]
+    balsamic_files_wgs: list[FilePathAndTag], test_sample_ids: list[str], test_case_id: str
 ) -> CollectQCRequest:
     return CollectQCRequest(
-        case_id="testcase",
+        case_id=test_case_id,
         sample_ids=test_sample_ids,
         files=balsamic_files_wgs,
         workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
@@ -202,10 +207,10 @@ def collect_qc_request_balsamic_wgs(
 
 @pytest.fixture
 def collect_qc_request_balsamic_tga(
-    balsamic_files_tga: list[FilePathAndTag], test_sample_ids: list[str]
+    balsamic_files_tga: list[FilePathAndTag], test_sample_ids: list[str], test_case_id: str
 ) -> CollectQCRequest:
     return CollectQCRequest(
-        case_id="testcase",
+        case_id=test_case_id,
         sample_ids=test_sample_ids,
         files=balsamic_files_tga,
         workflow_info=WorkflowInfo(workflow="balsamic", version="0"),
