@@ -22,7 +22,7 @@ class BalsamicSample(BaseModel):
         ..., alias=FileTag.ALIGNMENT_SUMMARY_METRICS
     )
     duplicates: PicardDuplicates = Field(..., alias=FileTag.DUPLICATES)
-    wgs_metrics: PicardWGSMetrics | None = Field(None, alias=FileTag.WGS_METRICS)
+    wgs_metrics: PicardWGSMetrics | str = Field("None", alias=FileTag.WGS_METRICS)
     hs_metrics: PicardHsMetrics = Field(..., alias=FileTag.HS_METRICS)
     insert_size: PicardInsertSize = Field(..., alias=FileTag.INSERT_SIZE)
     samtools_stats: SamtoolsStats = Field(..., alias=FileTag.SAMTOOLS_STATS)
@@ -31,5 +31,5 @@ class BalsamicSample(BaseModel):
 
 class Balsamic(BaseModel):
     samples: list[BalsamicSample]
-    somalier: Somalier | None
+    somalier: Somalier | str = Field("None")
     workflow: WorkflowInfo
