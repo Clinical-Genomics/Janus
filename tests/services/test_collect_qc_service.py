@@ -49,7 +49,7 @@ def test_collect_balsamic_metrics_tga(collect_balsamic_qc_service_tga: CollectQC
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)
-    assert balsamic_metrics.case_info.samples[0].wgs_metrics == "None"
+    assert not balsamic_metrics.case_info.samples[0].wgs_metrics
 
 
 def test_collect_unsupported_metrics(collect_qc_service_unsupported_workflow: CollectQCService):
