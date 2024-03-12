@@ -16,6 +16,7 @@ collect_qc_router = APIRouter()
     "/collect_qc/",
     response_description="Collect qc metrics for a case.",
     response_model=CollectQCResponse,
+    response_model_by_alias=False,
 )
 def collect_qc(collect_request: CollectQCRequest = Body(...)) -> CollectQCResponse | JSONResponse:
     """Collect qc metrics for the external request."""
