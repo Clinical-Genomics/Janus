@@ -31,5 +31,5 @@ class BalsamicSample(BaseModel):
 
 class Balsamic(BaseModel):
     samples: list[BalsamicSample]
-    somalier: Somalier | None
+    somalier: Somalier | None = Field(None)
     workflow: WorkflowInfo
