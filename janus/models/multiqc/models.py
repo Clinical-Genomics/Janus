@@ -419,7 +419,7 @@ class STARAlignment(BaseModel):
     unmapped_other: float
 
 
-class RNAfusionGeneralStats(BaseModel):
+class RNAFusionGeneralStatsForwardSummary(BaseModel):
     insert_size_sum_median: float = Field(
         ...,
         alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median",
@@ -458,3 +458,61 @@ class RNAfusionGeneralStats(BaseModel):
     )
     pct_surviving: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_surviving")
     pct_adapter: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_adapter")
+
+
+class RNAFusionGeneralStatsRead(BaseModel):
+    percent_duplicates: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates"
+    )
+    percent_gc: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc")
+    avg_sequence_length: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length"
+    )
+    median_sequence_length: int = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length"
+    )
+    percent_fails: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails")
+    total_sequences: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences")
+
+
+class RNAFusionGeneralStatsTrimmedRead(BaseModel):
+    raw_percent_duplicates: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates"
+    )
+    raw_percent_gc: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc")
+    raw_avg_sequence_length: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length"
+    )
+    raw_median_sequence_length: int = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length"
+    )
+    raw_percent_fails: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails")
+    raw_total_sequences: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences"
+    )
+    trimmed_percent_duplicates: float = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_duplicates"
+    )
+    trimmed_percent_gc: float = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_gc"
+    )
+    trimmed_avg_sequence_length: float = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-avg_sequence_length"
+    )
+    trimmed_median_sequence_length: int = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-median_sequence_length"
+    )
+    trimmed_percent_fails: float = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_fails"
+    )
+    trimmed_total_sequences: float = Field(
+        alias="FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-total_sequences"
+    )
+
+
+class RNAFusionGeneralStats(BaseModel):
+    summary: RNAFusionGeneralStatsForwardSummary
+    read_1: RNAFusionGeneralStatsRead
+    read_1_trimmed: RNAFusionGeneralStatsTrimmedRead
+    read_2: RNAFusionGeneralStatsRead
+    read_2_trimmed: RNAFusionGeneralStatsTrimmedRead

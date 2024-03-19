@@ -1,6 +1,5 @@
 """Module that holds the parsing functionality."""
 
-from enum import Enum
 from itertools import product
 from pathlib import Path
 
@@ -19,16 +18,31 @@ from janus.models.multiqc.models import (
     Fastp,
     FastpAfterFiltering,
     FastpBeforeFiltering,
+    STARAlignment,
+    PicardRNASeqMetrics,
+    RNAFusionGeneralStats,
 )
 
 
 def parse_sample_metrics(
     file_path: Path, sample_ids: list[str], tag: str, **kwargs
-) -> dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary]:
+) -> dict[
+    SamtoolsStats
+    | PicardHsMetrics
+    | PicardInsertSize
+    | PicardAlignmentSummary
+    | PicardRNASeqMetrics
+    | STARAlignment
+]:
     """Parse the content for a given file path into the corresponding model for each sample."""
     json_content: list[dict] = read_json(file_path)
     parsed_content: dict[
-        SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
+        SamtoolsStats
+        | PicardHsMetrics
+        | PicardInsertSize
+        | PicardAlignmentSummary
+        | PicardRNASeqMetrics
+        | STARAlignment
     ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
@@ -72,3 +86,7 @@ def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]
             }
 
     return parsed_content
+
+
+def parse_general_stats() -> RNAFusionGeneralStats:
+    pass

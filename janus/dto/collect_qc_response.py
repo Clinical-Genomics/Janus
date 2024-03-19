@@ -7,4 +7,4 @@ class CollectQCResponse(BaseModel):
     """Collect QC response model."""
 
     case_id: str
-    case_info: Balsamic | RNAFusion
+    case_info: Balsamic

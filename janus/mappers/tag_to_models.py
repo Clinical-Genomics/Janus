@@ -10,6 +10,8 @@ from janus.models.multiqc.models import (
     Fastp,
     Somalier,
     SamtoolsStats,
+    RNAFusionGeneralStats,
+    PicardRNASeqMetrics,
 )
 
 
@@ -22,4 +24,6 @@ tag_to_model = {
     FileTag.ALIGNMENT_SUMMARY_METRICS: PicardAlignmentSummary,
     FileTag.SOMALIER: Somalier,
     FileTag.SAMTOOLS_STATS: SamtoolsStats,
+    FileTag.GENERAL_STATS: RNAFusionGeneralStats,
+    FileTag.RNA_SEQ_METRICS: PicardRNASeqMetrics,
 }
