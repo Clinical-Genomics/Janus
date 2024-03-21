@@ -94,14 +94,20 @@ def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]
     return parsed_content
 
 
-def parse_general_stats(file_path: Path, sample_id: str, **kwargs) -> RNAFusionGeneralStats:
+def parse_general_stats(
+    file_path: Path, sample_id: str, **kwargs
+) -> RNAFusionGeneralStats:
     """Parse the general stats file."""
     json_content: dict[str:dict] = read_json(file_path)
     summary = RNAFusionGeneralStatsSummary(**json_content[sample_id])
     read_1 = RNAFusionGeneralStatsRead(**json_content[f"{sample_id}_1"])
     read_2 = RNAFusionGeneralStatsRead(**json_content[f"{sample_id}_2"])
-    read_1_trimmed = RNAFusionGeneralStatsTrimmedRead(**json_content[f"{sample_id}_trimmed_1"])
-    read_2_trimmed = RNAFusionGeneralStatsTrimmedRead(**json_content[f"{sample_id}_trimmed_2"])
+    read_1_trimmed = RNAFusionGeneralStatsTrimmedRead(
+        **json_content[f"{sample_id}_trimmed_1"]
+    )
+    read_2_trimmed = RNAFusionGeneralStatsTrimmedRead(
+        **json_content[f"{sample_id}_trimmed_2"]
+    )
     return RNAFusionGeneralStats(
         summary=summary,
         read_1=read_1,

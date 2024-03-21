@@ -37,7 +37,9 @@ def test_collect_balsamic_metrics_wgs(
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)
-    assert isinstance(balsamic_metrics.case_info.samples[0].wgs_metrics, PicardWGSMetrics)
+    assert isinstance(
+        balsamic_metrics.case_info.samples[0].wgs_metrics, PicardWGSMetrics
+    )
 
 
 def test_collect_balsamic_metrics_tga(

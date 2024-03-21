@@ -136,7 +136,9 @@ def test_case_id() -> str:
 
 
 @pytest.fixture
-def collect_qc_request(test_file_tag_model: FilePathAndTag, test_case_id: str) -> CollectQCRequest:
+def collect_qc_request(
+    test_file_tag_model: FilePathAndTag, test_case_id: str
+) -> CollectQCRequest:
     return CollectQCRequest(
         case_id=test_case_id,
         sample_ids=["sample1", "sample2"],

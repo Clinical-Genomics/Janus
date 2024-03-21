@@ -25,7 +25,9 @@ def collect_qc(
     """Collect qc metrics for the external request."""
     service = CollectQCService(collect_request)
     try:
-        collected_qc_metrics: CollectQCResponse = service.collect_qc_metrics_for_request()
+        collected_qc_metrics: CollectQCResponse = (
+            service.collect_qc_metrics_for_request()
+        )
         return collected_qc_metrics
     except (
         ValueError,

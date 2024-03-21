@@ -13,11 +13,15 @@ def validate_float(value):
 class PicardDuplicates(BaseModel):
     unpaired_reads_examined: float = Field(..., alias="UNPAIRED_READS_EXAMINED")
     read_pairs_examined: float = Field(..., alias="READ_PAIRS_EXAMINED")
-    secondary_or_supplementary_reads: float = Field(..., alias="SECONDARY_OR_SUPPLEMENTARY_RDS")
+    secondary_or_supplementary_reads: float = Field(
+        ..., alias="SECONDARY_OR_SUPPLEMENTARY_RDS"
+    )
     unmapped_reads: float = Field(..., alias="UNMAPPED_READS")
     unpaired_read_duplicates: float = Field(..., alias="UNPAIRED_READ_DUPLICATES")
     read_pair_duplicates: float = Field(..., alias="READ_PAIR_DUPLICATES")
-    read_pair_optical_duplicates: float = Field(..., alias="READ_PAIR_OPTICAL_DUPLICATES")
+    read_pair_optical_duplicates: float = Field(
+        ..., alias="READ_PAIR_OPTICAL_DUPLICATES"
+    )
     percent_duplication: float = Field(..., alias="PERCENT_DUPLICATION")
     estimated_library_size: float = Field(..., alias="ESTIMATED_LIBRARY_SIZE")
 
@@ -193,7 +197,9 @@ class PicardHsMetrics(BaseModel):
     het_snp_sensitivity: float = Field(..., alias="HET_SNP_SENSITIVITY")
     het_snp_q: float = Field(..., alias="HET_SNP_Q")
 
-    validate_float = validator("fold_80_base_penalty", pre=True, always=True)(validate_float)
+    validate_float = validator("fold_80_base_penalty", pre=True, always=True)(
+        validate_float
+    )
 
 
 class PicardAlignmentSummary(BaseModel):
@@ -228,7 +234,9 @@ class PicardAlignmentSummary(BaseModel):
     pct_adapter: float = Field(..., alias="PCT_ADAPTER")
     pct_softclip: float = Field(..., alias="PCT_SOFTCLIP")
     pct_hardclip: float = Field(..., alias="PCT_HARDCLIP")
-    avg_pos_3prime_softclip_length: float = Field(..., alias="AVG_POS_3PRIME_SOFTCLIP_LENGTH")
+    avg_pos_3prime_softclip_length: float = Field(
+        ..., alias="AVG_POS_3PRIME_SOFTCLIP_LENGTH"
+    )
 
 
 class SomalierIndividual(BaseModel):
@@ -368,11 +376,19 @@ class PicardRNASeqMetrics(BaseModel):
     ignored_reads: float = Field(..., alias="IGNORED_READS")
     correct_strand_reads: float = Field(..., alias="CORRECT_STRAND_READS")
     incorrect_strand_reads: float = Field(..., alias="INCORRECT_STRAND_READS")
-    num_r1_transcript_strand_reads: float = Field(..., alias="NUM_R1_TRANSCRIPT_STRAND_READS")
-    num_r2_transcript_strand_reads: float = Field(..., alias="NUM_R2_TRANSCRIPT_STRAND_READS")
+    num_r1_transcript_strand_reads: float = Field(
+        ..., alias="NUM_R1_TRANSCRIPT_STRAND_READS"
+    )
+    num_r2_transcript_strand_reads: float = Field(
+        ..., alias="NUM_R2_TRANSCRIPT_STRAND_READS"
+    )
     num_unexplained_reads: float = Field(..., alias="NUM_UNEXPLAINED_READS")
-    pct_r1_transcript_strand_reads: float = Field(..., alias="PCT_R1_TRANSCRIPT_STRAND_READS")
-    pct_r2_transcript_strand_reads: float = Field(..., alias="PCT_R2_TRANSCRIPT_STRAND_READS")
+    pct_r1_transcript_strand_reads: float = Field(
+        ..., alias="PCT_R1_TRANSCRIPT_STRAND_READS"
+    )
+    pct_r2_transcript_strand_reads: float = Field(
+        ..., alias="PCT_R2_TRANSCRIPT_STRAND_READS"
+    )
     pct_ribosomal_bases: float = Field(..., alias="PCT_RIBOSOMAL_BASES")
     pct_coding_bases: float = Field(..., alias="PCT_CODING_BASES")
     pct_utr_bases: float = Field(..., alias="PCT_UTR_BASES")
@@ -384,7 +400,9 @@ class PicardRNASeqMetrics(BaseModel):
     median_cv_coverage: float = Field(..., alias="MEDIAN_CV_COVERAGE")
     median_5prime_bias: float = Field(..., alias="MEDIAN_5PRIME_BIAS")
     median_3prime_bias: float = Field(..., alias="MEDIAN_3PRIME_BIAS")
-    median_5prime_to_3prime_bias: float = Field(..., alias="MEDIAN_5PRIME_TO_3PRIME_BIAS")
+    median_5prime_to_3prime_bias: float = Field(
+        ..., alias="MEDIAN_5PRIME_TO_3PRIME_BIAS"
+    )
     library: str = Field(..., alias="LIBRARY")
     read_group: str = Field(..., alias="READ_GROUP")
     pf_not_aligned_bases: float = Field(..., alias="PF_NOT_ALIGNED_BASES")
@@ -443,7 +461,9 @@ class RNAFusionGeneralStatsSummary(BaseModel):
     percent_uniquely_mapped: float = Field(
         ..., alias="STAR_mqc_generalstats_star_uniquely_mapped_percent"
     )
-    uniquely_mapped: float = Field(..., alias="STAR_mqc_generalstats_star_uniquely_mapped")
+    uniquely_mapped: float = Field(
+        ..., alias="STAR_mqc_generalstats_star_uniquely_mapped"
+    )
     percent_duplication_fastq: float = Field(
         ..., alias="fastp_mqc-generalstats-fastp-pct_duplication"
     )
@@ -459,7 +479,9 @@ class RNAFusionGeneralStatsSummary(BaseModel):
     after_filtering_gc_content: float = Field(
         ..., alias="fastp_mqc_generalstats_fastp_after_filtering_gc_content"
     )
-    pct_surviving: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_surviving")
+    pct_surviving: float = Field(
+        ..., alias="fastp_mqc_generalstats_fastp_pct_surviving"
+    )
     pct_adapter: float = Field(..., alias="fastp_mqc_generalstats_fastp_pct_adapter")
 
 
@@ -467,29 +489,39 @@ class RNAFusionGeneralStatsRead(BaseModel):
     percent_duplicates: float = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates"
     )
-    percent_gc: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc")
+    percent_gc: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc"
+    )
     avg_sequence_length: float = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length"
     )
     median_sequence_length: int = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length"
     )
-    percent_fails: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails")
-    total_sequences: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences")
+    percent_fails: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails"
+    )
+    total_sequences: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences"
+    )
 
 
 class RNAFusionGeneralStatsTrimmedRead(BaseModel):
     raw_percent_duplicates: float = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates"
     )
-    raw_percent_gc: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc")
+    raw_percent_gc: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc"
+    )
     raw_avg_sequence_length: float = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length"
     )
     raw_median_sequence_length: int = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length"
     )
-    raw_percent_fails: float = Field(alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails")
+    raw_percent_fails: float = Field(
+        alias="FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails"
+    )
     raw_total_sequences: float = Field(
         alias="FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences"
     )

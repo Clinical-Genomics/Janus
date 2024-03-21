@@ -21,7 +21,9 @@ def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
     # GIVEN a file path and sample ids
 
     # WHEN parsing the fastp json file
-    parsed_content: dict[str:Fastp] = parse_fastp(file_path=fastp_path, sample_ids=test_sample_ids)
+    parsed_content: dict[str:Fastp] = parse_fastp(
+        file_path=fastp_path, sample_ids=test_sample_ids
+    )
 
     # THEN the fastp is parsed
     for entry in parsed_content:
@@ -60,7 +62,9 @@ def test_parse_somalier(somalier_path: Path):
         ("picard_dups_path", "test_sample_ids", "picard_dups_tag"),
     ],
 )
-def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request: FixtureRequest):
+def test_parse_sample_metrics(
+    file_path: str, sample_ids: str, tag: str, request: FixtureRequest
+):
     # GIVEN a file path, sample ids and a metrics model
     file_path: Path = request.getfixturevalue(file_path)
     sample_ids: list[str] = request.getfixturevalue(sample_ids)
@@ -77,6 +81,9 @@ def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request
         for metrics_tag in parsed_content[entry]:
             assert tag == metrics_tag
             content: (
-                SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
+                SamtoolsStats
+                | PicardHsMetrics
+                | PicardInsertSize
+                | PicardAlignmentSummary
             ) = sample_metrics[metrics_tag]
             assert isinstance(content, tag_to_model[tag])
