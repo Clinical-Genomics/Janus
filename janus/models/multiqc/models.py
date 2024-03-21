@@ -419,7 +419,7 @@ class STARAlignment(BaseModel):
     unmapped_other: float
 
 
-class RNAFusionGeneralStatsForwardSummary(BaseModel):
+class RNAFusionGeneralStatsSummary(BaseModel):
     insert_size_sum_median: float = Field(
         ...,
         alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_median",
@@ -428,7 +428,7 @@ class RNAFusionGeneralStatsForwardSummary(BaseModel):
         ...,
         alias="Picard_InsertSizeMetrics_mqc_generalstats_picard_insertsizemetrics_summed_mean",
     )
-    percent_duplication: float = Field(
+    percent_duplication_picard: float = Field(
         ...,
         alias="Picard_MarkDuplicates_mqc_generalstats_picard_mark_duplicates_PERCENT_DUPLICATION",
     )
@@ -444,6 +444,9 @@ class RNAFusionGeneralStatsForwardSummary(BaseModel):
         ..., alias="STAR_mqc_generalstats_star_uniquely_mapped_percent"
     )
     uniquely_mapped: float = Field(..., alias="STAR_mqc_generalstats_star_uniquely_mapped")
+    percent_duplication_fastq: float = Field(
+        ..., alias="fastp_mqc-generalstats-fastp-pct_duplication"
+    )
     after_filtering_q30_rate: float = Field(
         ..., alias="fastp_mqc_generalstats_fastp_after_filtering_q30_rate"
     )
@@ -511,7 +514,7 @@ class RNAFusionGeneralStatsTrimmedRead(BaseModel):
 
 
 class RNAFusionGeneralStats(BaseModel):
-    summary: RNAFusionGeneralStatsForwardSummary
+    summary: RNAFusionGeneralStatsSummary
     read_1: RNAFusionGeneralStatsRead
     read_1_trimmed: RNAFusionGeneralStatsTrimmedRead
     read_2: RNAFusionGeneralStatsRead
