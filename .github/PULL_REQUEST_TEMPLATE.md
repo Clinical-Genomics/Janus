@@ -3,7 +3,7 @@
 
 ### How to test
 
-- [ ] Deploy your janus branch on `cg-services-stage` - Follow the atlas container documentation.
+- [ ] Deploy your janus branch on `cg-services-stage` - Follow the atlas container documentation (https://atlas.scilifelab.se/infrastructure/containers/).
 - [ ] Make sure the newly added functionality works by using the swagger: https://janus-stage.sys.scilifelab.se/
 - [ ] Make sure the command `cg store qc-metrics` can be run to completion on `hasta` stage.
 
