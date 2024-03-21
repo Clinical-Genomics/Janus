@@ -2,28 +2,28 @@
 
 from pathlib import Path
 
-from _pytest.fixtures import FixtureRequest
 import pytest
-
+from _pytest.fixtures import FixtureRequest
 from janus.constants.FileTag import FileTag
 from janus.mappers.tag_to_models import tag_to_model
 from janus.models.multiqc.models import (
+    Fastp,
+    PicardAlignmentSummary,
+    PicardHsMetrics,
     PicardInsertSize,
     SamtoolsStats,
-    PicardHsMetrics,
-    PicardAlignmentSummary,
-    Fastp,
     Somalier,
 )
-from janus.services.parser import parse_fastp, parse_somalier, parse_sample_metrics
+from janus.services.parser import parse_fastp, parse_sample_metrics, parse_somalier
 
 
 def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
-
     # GIVEN a file path and sample ids
 
     # WHEN parsing the fastp json file
-    parsed_content: dict[Fastp] = parse_fastp(file_path=fastp_path, sample_ids=test_sample_ids)
+    parsed_content: dict[str:Fastp] = parse_fastp(
+        file_path=fastp_path, sample_ids=test_sample_ids
+    )
 
     # THEN the fastp is parsed
     for entry in parsed_content:
@@ -37,13 +37,12 @@ def test_parse_fastp(fastp_path: Path, test_sample_ids: list[str]):
 
 
 def test_parse_somalier(somalier_path: Path):
-
     # GIVEN a file path
 
-    # WHEN parsing the somalier json file
+    # WHEN parsing the Somalier json file
     parsed_content: dict = parse_somalier(file_path=somalier_path, case_id="testcase")
 
-    # THEN the somalier files is parsed
+    # THEN the Somalier files is parsed
     case_contents: dict = parsed_content["testcase"]
     assert isinstance(case_contents[FileTag.SOMALIER], Somalier)
 
@@ -63,8 +62,9 @@ def test_parse_somalier(somalier_path: Path):
         ("picard_dups_path", "test_sample_ids", "picard_dups_tag"),
     ],
 )
-def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request: FixtureRequest):
-
+def test_parse_sample_metrics(
+    file_path: str, sample_ids: str, tag: str, request: FixtureRequest
+):
     # GIVEN a file path, sample ids and a metrics model
     file_path: Path = request.getfixturevalue(file_path)
     sample_ids: list[str] = request.getfixturevalue(sample_ids)
@@ -80,7 +80,10 @@ def test_parse_sample_metrics(file_path: str, sample_ids: str, tag: str, request
         sample_metrics = parsed_content[entry]
         for metrics_tag in parsed_content[entry]:
             assert tag == metrics_tag
-            content: SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary = (
-                sample_metrics[metrics_tag]
-            )
+            content: (
+                SamtoolsStats
+                | PicardHsMetrics
+                | PicardInsertSize
+                | PicardAlignmentSummary
+            ) = sample_metrics[metrics_tag]
             assert isinstance(content, tag_to_model[tag])

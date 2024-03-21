@@ -12,3 +12,6 @@ class FileTag(StrEnum):
     FASTP: str = "fastp"
     SOMALIER: str = "somalier"
     SAMTOOLS_STATS: str = "samtools-stats"
+    GENERAL_STATS: str = "general-stats"
+    STAR: str = "star"
+    RNA_SEQ_METRICS: str = "picard-rnaseq"

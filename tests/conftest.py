@@ -136,7 +136,9 @@ def test_case_id() -> str:
 
 
 @pytest.fixture
-def collect_qc_request(test_file_tag_model: FilePathAndTag, test_case_id: str) -> CollectQCRequest:
+def collect_qc_request(
+    test_file_tag_model: FilePathAndTag, test_case_id: str
+) -> CollectQCRequest:
     return CollectQCRequest(
         case_id=test_case_id,
         sample_ids=["sample1", "sample2"],
@@ -147,7 +149,6 @@ def collect_qc_request(test_file_tag_model: FilePathAndTag, test_case_id: str) -
 
 @pytest.fixture
 def balsamic_files_wgs(request: FixtureRequest) -> list[FilePathAndTag]:
-
     fixtures: dict = {
         "alignment_summary_metrics_path": "picard_alignment_summary_tag",
         "picard_hs_metrics_path": "picard_hs_metrics_tag",
@@ -172,7 +173,6 @@ def balsamic_files_wgs(request: FixtureRequest) -> list[FilePathAndTag]:
 
 @pytest.fixture
 def balsamic_files_tga(request: FixtureRequest) -> list[FilePathAndTag]:
-
     fixtures: dict = {
         "alignment_summary_metrics_path": "picard_alignment_summary_tag",
         "picard_hs_metrics_path": "picard_hs_metrics_tag",
@@ -196,7 +196,9 @@ def balsamic_files_tga(request: FixtureRequest) -> list[FilePathAndTag]:
 
 @pytest.fixture
 def collect_qc_request_balsamic_wgs(
-    balsamic_files_wgs: list[FilePathAndTag], test_sample_ids: list[str], test_case_id: str
+    balsamic_files_wgs: list[FilePathAndTag],
+    test_sample_ids: list[str],
+    test_case_id: str,
 ) -> CollectQCRequest:
     return CollectQCRequest(
         case_id=test_case_id,
@@ -208,7 +210,9 @@ def collect_qc_request_balsamic_wgs(
 
 @pytest.fixture
 def collect_qc_request_balsamic_tga(
-    balsamic_files_tga: list[FilePathAndTag], test_sample_ids: list[str], test_case_id: str
+    balsamic_files_tga: list[FilePathAndTag],
+    test_sample_ids: list[str],
+    test_case_id: str,
 ) -> CollectQCRequest:
     return CollectQCRequest(
         case_id=test_case_id,

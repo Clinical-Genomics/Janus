@@ -1,18 +1,62 @@
 {
-  "tendergoose": {
-    "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_median": 154,
-    "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_mean": 224.403271,
-    "Picard: Mark Duplicates_mqc-generalstats-picard_mark_duplicates-PERCENT_DUPLICATION": 0.016817,
-    "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_RIBOSOMAL_BASES": 0.6491,
-    "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_MRNA_BASES": 85.9853,
-    "STAR_mqc-generalstats-star-uniquely_mapped_percent": 91.32,
-    "STAR_mqc-generalstats-star-uniquely_mapped": 454656.0,
-    "fastp_mqc-generalstats-fastp-pct_duplication": 0.734498,
-    "fastp_mqc-generalstats-fastp-after_filtering_q30_rate": 0.929515,
-    "fastp_mqc-generalstats-fastp-after_filtering_q30_bases": 91982592.0,
-    "fastp_mqc-generalstats-fastp-filtering_result_passed_filter_reads": 995784.0,
-    "fastp_mqc-generalstats-fastp-after_filtering_gc_content": 0.516919,
-    "fastp_mqc-generalstats-fastp-pct_surviving": 99.42925611582626,
-    "fastp_mqc-generalstats-fastp-pct_adapter": 11.966050923614578
-  }
+    "test_sample": {
+        "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_median": 154,
+        "Picard: InsertSizeMetrics_mqc-generalstats-picard_insertsizemetrics-summed_mean": 224.403271,
+        "Picard: Mark Duplicates_mqc-generalstats-picard_mark_duplicates-PERCENT_DUPLICATION": 0.016817,
+        "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_RIBOSOMAL_BASES": 0.6491,
+        "Picard: RnaSeqMetrics_mqc-generalstats-picard_rnaseqmetrics-PCT_MRNA_BASES": 85.9853,
+        "STAR_mqc-generalstats-star-uniquely_mapped_percent": 91.32,
+        "STAR_mqc-generalstats-star-uniquely_mapped": 454656.0,
+        "fastp_mqc-generalstats-fastp-pct_duplication": 0.734498,
+        "fastp_mqc-generalstats-fastp-after_filtering_q30_rate": 0.929515,
+        "fastp_mqc-generalstats-fastp-after_filtering_q30_bases": 91982592.0,
+        "fastp_mqc-generalstats-fastp-filtering_result_passed_filter_reads": 995784.0,
+        "fastp_mqc-generalstats-fastp-after_filtering_gc_content": 0.516919,
+        "fastp_mqc-generalstats-fastp-pct_surviving": 99.42925611582626,
+        "fastp_mqc-generalstats-fastp-pct_adapter": 11.966050923614578
+    },
+    "test_sample_trimmed_2": {
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates": 16.90505234747154,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc": 51.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length": 98.45351602355531,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length": 100,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails": 9.090909090909092,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences": 497892.0,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_duplicates": 16.90505234747154,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_gc": 51.0,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-avg_sequence_length": 98.45351602355531,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-median_sequence_length": 100,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_fails": 9.090909090909092,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-total_sequences": 497892.0
+    },
+    "test_sample_1": {
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates": 17.424046524663893,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc": 51.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length": 151.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length": 151,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails": 18.181818181818183,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences": 500750.0
+    },
+    "test_sample_trimmed_1": {
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates": 17.453814698937876,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc": 51.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length": 98.42907297164847,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length": 100,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails": 9.090909090909092,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences": 497892.0,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_duplicates": 17.453814698937876,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_gc": 51.0,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-avg_sequence_length": 98.42907297164847,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-median_sequence_length": 100,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-percent_fails": 9.090909090909092,
+        "FastQC (trimmed)_mqc-generalstats-fastqc_trimmed-total_sequences": 497892.0
+    },
+    "test_sample_2": {
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_duplicates": 16.86317069246985,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_gc": 51.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-avg_sequence_length": 151.0,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-median_sequence_length": 151,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-percent_fails": 18.181818181818183,
+        "FastQC (raw)_mqc-generalstats-fastqc_raw-total_sequences": 500750.0
+    }
 }

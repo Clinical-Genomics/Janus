@@ -104,5 +104,7 @@ class CollectQCService:
                 f"Janus does not support parsing of qc metrics for {self.request.workflow_info.workflow})"
             )
         case_info: callable = self.get_case_info_for_workflow()
-        qc_metrics = CollectQCResponse(case_id=self.request.case_id, case_info=case_info)
+        qc_metrics = CollectQCResponse(
+            case_id=self.request.case_id, case_info=case_info
+        )
         return qc_metrics

@@ -1,34 +1,54 @@
 """Module that holds the parsing functionality."""
 
-from enum import Enum
 from itertools import product
 from pathlib import Path
 
 from janus.constants.FileTag import FileTag
 from janus.io.read_json import read_json
 from janus.mappers.tag_to_models import tag_to_model
-
 from janus.models.multiqc.models import (
-    PicardInsertSize,
-    SamtoolsStats,
-    PicardHsMetrics,
-    PicardAlignmentSummary,
-    SomalierIndividual,
-    SomalierComparison,
-    Somalier,
     Fastp,
     FastpAfterFiltering,
     FastpBeforeFiltering,
+    PicardAlignmentSummary,
+    PicardHsMetrics,
+    PicardInsertSize,
+    PicardRNASeqMetrics,
+    RNAFusionGeneralStats,
+    RNAFusionGeneralStatsRead,
+    RNAFusionGeneralStatsSummary,
+    RNAFusionGeneralStatsTrimmedRead,
+    SamtoolsStats,
+    Somalier,
+    SomalierComparison,
+    SomalierIndividual,
+    STARAlignment,
 )
 
 
 def parse_sample_metrics(
     file_path: Path, sample_ids: list[str], tag: str, **kwargs
-) -> dict[SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary]:
+) -> dict[
+    str : dict[
+        str : SamtoolsStats
+        | PicardHsMetrics
+        | PicardInsertSize
+        | PicardAlignmentSummary
+        | PicardRNASeqMetrics
+        | STARAlignment
+    ]
+]:
     """Parse the content for a given file path into the corresponding model for each sample."""
-    json_content: list[dict] = read_json(file_path)
+    json_content: dict = read_json(file_path)
     parsed_content: dict[
-        SamtoolsStats | PicardHsMetrics | PicardInsertSize | PicardAlignmentSummary
+        str : dict[
+            str : SamtoolsStats
+            | PicardHsMetrics
+            | PicardInsertSize
+            | PicardAlignmentSummary
+            | PicardRNASeqMetrics
+            | STARAlignment
+        ]
     ] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
@@ -40,7 +60,7 @@ def parse_somalier(file_path: Path, case_id: str, **kwargs) -> dict[str, Somalie
     """Parse the somalier multiqc file."""
     individuals: list[SomalierIndividual] = []
     comparison: SomalierComparison | None = None
-    json_content: list[dict] = read_json(file_path)
+    json_content: dict = read_json(file_path)
 
     for entry in json_content:
         if entry.__contains__("*"):
@@ -55,7 +75,7 @@ def parse_somalier(file_path: Path, case_id: str, **kwargs) -> dict[str, Somalie
 
 def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]:
     """Parse the Fastp multiqc file."""
-    json_content: list[dict] = read_json(file_path)
+    json_content: dict = read_json(file_path)
     parsed_content: dict[Fastp] = {}
     for entry, sample_id in product(json_content, sample_ids):
         if sample_id in entry:
@@ -72,3 +92,26 @@ def parse_fastp(file_path: Path, sample_ids: list[str], **kwargs) -> dict[Fastp]
             }
 
     return parsed_content
+
+
+def parse_general_stats(
+    file_path: Path, sample_id: str, **kwargs
+) -> RNAFusionGeneralStats:
+    """Parse the general stats file."""
+    json_content: dict[str:dict] = read_json(file_path)
+    summary = RNAFusionGeneralStatsSummary(**json_content[sample_id])
+    read_1 = RNAFusionGeneralStatsRead(**json_content[f"{sample_id}_1"])
+    read_2 = RNAFusionGeneralStatsRead(**json_content[f"{sample_id}_2"])
+    read_1_trimmed = RNAFusionGeneralStatsTrimmedRead(
+        **json_content[f"{sample_id}_trimmed_1"]
+    )
+    read_2_trimmed = RNAFusionGeneralStatsTrimmedRead(
+        **json_content[f"{sample_id}_trimmed_2"]
+    )
+    return RNAFusionGeneralStats(
+        summary=summary,
+        read_1=read_1,
+        read_2=read_2,
+        read_1_trimmed=read_1_trimmed,
+        read_2_trimmed=read_2_trimmed,
+    )
