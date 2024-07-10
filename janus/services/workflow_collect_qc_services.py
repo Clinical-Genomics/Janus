@@ -20,7 +20,7 @@ class BalsamicCollectQCService(WorkflowCollectQCService):
     """Balsamic Collect QC service."""
 
     @staticmethod
-    def extract_somalier_metrics(case_metrics: dict) -> dict:
+    def _extract_somalier_metrics(case_metrics: dict) -> dict:
         """Extract Somalier metrics from case metrics."""
         for metric in case_metrics:
             somalier_metrics: dict = metric[FileTag.SOMALIER]
@@ -40,7 +40,7 @@ class BalsamicCollectQCService(WorkflowCollectQCService):
         case_metrics: dict = get_case_metrics(
             collected_metrics=collected_metrics, case_id=request.case_id
         )
-        somalier_metrics: dict = self.extract_somalier_metrics(case_metrics[request.case_id])
+        somalier_metrics: dict = self._extract_somalier_metrics(case_metrics[request.case_id])
         return Balsamic(
             samples=sample_metrics,
             somalier=somalier_metrics,
