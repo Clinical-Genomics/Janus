@@ -26,10 +26,9 @@ def collect_qc(collect_request: CollectQCRequest = Body(...)) -> CollectQCRespon
     """Collect qc metrics for the external request."""
     try:
         workflow_service: WorkflowCollectQCService = get_workflow_service(collect_request.workflow)
-        service = CollectQCService(
+        collect_service = CollectQCService(
             collect_qc_request=collect_request, collect_qc_service=workflow_service
         )
-        collected_qc_metrics: CollectQCResponse = service.collect_qc_metrics_for_request()
-        return collected_qc_metrics
+        return collect_service.collect_qc_metrics()
     except (ValueError, FileNotFoundError, ValidationError, WorkflowNotSupportedError) as error:
         return JSONResponse(content=repr(error), status_code=HTTPStatus.BAD_REQUEST)

@@ -17,10 +17,8 @@ class CollectQCService:
         self.request: CollectQCRequest = collect_qc_request
         self.get_case_info: callable = collect_qc_service.get_case_info
 
-    def collect_qc_metrics_for_request(self) -> CollectQCResponse:
+    def collect_qc_metrics(self) -> CollectQCResponse:
         """Collect the qc metrics requested by the external source."""
-        case_info: callable = self.get_case_info(
-            request=self.request,
-        )
+        case_info: callable = self.get_case_info(self.request)
         qc_metrics = CollectQCResponse(case_id=self.request.case_id, case_info=case_info)
         return qc_metrics

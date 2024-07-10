@@ -31,9 +31,7 @@ def test_collect_balsamic_metrics_wgs(collect_balsamic_qc_service_wgs: CollectQC
     # GIVEN a collect qc request for a balsamic workflow
 
     # WHEN collecting the qc metrics
-    balsamic_metrics: CollectQCResponse = (
-        collect_balsamic_qc_service_wgs.collect_qc_metrics_for_request()
-    )
+    balsamic_metrics: CollectQCResponse = collect_balsamic_qc_service_wgs.collect_qc_metrics()
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)
@@ -44,9 +42,7 @@ def test_collect_balsamic_metrics_tga(collect_balsamic_qc_service_tga: CollectQC
     # GIVEN a collect qc request for a balsamic workflow
 
     # WHEN collecting the qc metrics
-    balsamic_metrics: CollectQCResponse = (
-        collect_balsamic_qc_service_tga.collect_qc_metrics_for_request()
-    )
+    balsamic_metrics: CollectQCResponse = collect_balsamic_qc_service_tga.collect_qc_metrics()
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)

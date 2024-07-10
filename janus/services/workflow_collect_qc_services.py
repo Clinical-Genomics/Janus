@@ -11,7 +11,9 @@ from janus.services.utils import get_formatted_sample_metrics, get_case_metrics,
 class WorkflowCollectQCService(ABC):
     """Abstract class for workflow collect qc service."""
 
-    pass
+    def get_case_info(self, request: CollectQCRequest) -> None:
+        """Get the case info."""
+        pass
 
 
 class BalsamicCollectQCService(WorkflowCollectQCService):
