@@ -6,6 +6,7 @@ from starlette.responses import JSONResponse
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
 from janus.exceptions.exceptions import WorkflowNotSupportedError
+from janus.server.utils import get_workflow_service
 from janus.services.collect_qc_service import CollectQCService
 from pydantic import ValidationError
 
@@ -21,8 +22,11 @@ collect_qc_router = APIRouter()
 )
 def collect_qc(collect_request: CollectQCRequest = Body(...)) -> CollectQCResponse | JSONResponse:
     """Collect qc metrics for the external request."""
-    service = CollectQCService(collect_request)
     try:
+        workflow_service = get_workflow_service(collect_request.workflow)
+        service = CollectQCService(
+            collect_qc_request=collect_request, collect_qc_service=workflow_service
+        )
         collected_qc_metrics: CollectQCResponse = service.collect_qc_metrics_for_request()
         return collected_qc_metrics
     except (ValueError, FileNotFoundError, ValidationError, WorkflowNotSupportedError) as error:

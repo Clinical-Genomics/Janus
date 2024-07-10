@@ -8,6 +8,7 @@ from _pytest.fixtures import FixtureRequest
 from janus.constants.FileTag import FileTag
 from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
+from janus.services.balsamic_collect_qc_service import BalsamicCollectQCService
 from janus.services.collect_qc_service import CollectQCService
 
 
@@ -222,14 +223,20 @@ def collect_qc_request_balsamic_tga(
 def collect_balsamic_qc_service_wgs(
     collect_qc_request_balsamic_wgs: CollectQCRequest,
 ) -> CollectQCService:
-    return CollectQCService(collect_qc_request_balsamic_wgs)
+    return CollectQCService(
+        collect_qc_request=collect_qc_request_balsamic_wgs,
+        collect_qc_service=BalsamicCollectQCService(),
+    )
 
 
 @pytest.fixture
 def collect_balsamic_qc_service_tga(
     collect_qc_request_balsamic_tga: CollectQCRequest,
 ) -> CollectQCService:
-    return CollectQCService(collect_qc_request_balsamic_tga)
+    return CollectQCService(
+        collect_qc_request=collect_qc_request_balsamic_tga,
+        collect_qc_service=BalsamicCollectQCService(),
+    )
 
 
 @pytest.fixture
@@ -238,4 +245,6 @@ def collect_qc_service_unsupported_workflow(
 ) -> CollectQCService:
     request: CollectQCRequest = collect_qc_request_balsamic_wgs
     request.workflow_info.workflow = "not_supported"
-    return CollectQCService(request)
+    return CollectQCService(
+        collect_qc_request=request, collect_qc_service=BalsamicCollectQCService()
+    )
