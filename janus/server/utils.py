@@ -10,6 +10,6 @@ def get_workflow_service(workflow: Workflow) -> BalsamicCollectQCService:
     """Get the workflow service."""
     if workflow not in workflow_to_service.keys():
         raise WorkflowNotSupportedError(
-            f"Janus does not support parsing of qc metrics for {workflow})"
+            f"Janus does not support parsing of QC metrics for {workflow})"
         )
     return workflow_to_service[workflow]

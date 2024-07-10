@@ -11,9 +11,9 @@ class BalsamicCollectQCService:
 
     @staticmethod
     def extract_somalier(case_metrics: dict) -> dict:
-        """Extract somalier metrics from case metrics."""
+        """Extract Somalier metrics from case metrics."""
         for metric in case_metrics:
-            somalier = metric[FileTag.SOMALIER]
+            somalier_metrics = metric[FileTag.SOMALIER]
             if not somalier:
                 raise ValueError("No Somalier entry found.")
             return somalier
@@ -22,15 +22,15 @@ class BalsamicCollectQCService:
         self,
         request: CollectQCRequest,
     ) -> Balsamic:
-        """Collect multiqc metrics for balsamic workflow."""
-        collected_metrics = collect_metrics(request)
+        """Collect MultiQC metrics for Balsamic workflow."""
+        collected_metrics: list[dict] = collect_metrics(request)
         sample_metrics: list = get_formatted_sample_metrics(
             collected_metrics=collected_metrics, sample_ids=request.sample_ids
         )
         case_metrics: dict = get_case_metrics(
             collected_metrics=collected_metrics, case_id=request.case_id
         )
-        somalier = self.extract_somalier(case_metrics[request.case_id])
+        somalier_metrics: dict = self.extract_somalier(case_metrics[request.case_id])
         return Balsamic(
             samples=sample_metrics,
             somalier=somalier,
