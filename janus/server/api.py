@@ -10,6 +10,8 @@ from janus.server.utils import get_workflow_service
 from janus.services.collect_qc_service import CollectQCService
 from pydantic import ValidationError
 
+from janus.services.workflow_collect_qc_services import WorkflowCollectQCService
+
 collect_qc_router = APIRouter()
 
 
@@ -23,7 +25,7 @@ collect_qc_router = APIRouter()
 def collect_qc(collect_request: CollectQCRequest = Body(...)) -> CollectQCResponse | JSONResponse:
     """Collect qc metrics for the external request."""
     try:
-        workflow_service = get_workflow_service(collect_request.workflow)
+        workflow_service: WorkflowCollectQCService = get_workflow_service(collect_request.workflow)
         service = CollectQCService(
             collect_qc_request=collect_request, collect_qc_service=workflow_service
         )

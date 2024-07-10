@@ -7,12 +7,12 @@ from janus.dto.collect_qc_response import CollectQCResponse
 from janus.exceptions.exceptions import WorkflowNotSupportedError
 from janus.mappers.tag_to_parse_function import tag_to_parse_function
 from janus.models.workflow.balsamic import Balsamic
-from janus.services.balsamic_collect_qc_service import BalsamicCollectQCService
+from janus.services.workflow_collect_qc_services import WorkflowCollectQCService
 
 
 class CollectQCService:
     def __init__(
-        self, collect_qc_request: CollectQCRequest, collect_qc_service: BalsamicCollectQCService
+        self, collect_qc_request: CollectQCRequest, collect_qc_service: WorkflowCollectQCService
     ):
         self.request: CollectQCRequest = collect_qc_request
         self.get_case_info: callable = collect_qc_service.get_case_info

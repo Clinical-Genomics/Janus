@@ -8,7 +8,7 @@ from _pytest.fixtures import FixtureRequest
 from janus.constants.FileTag import FileTag
 from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
-from janus.services.balsamic_collect_qc_service import BalsamicCollectQCService
+from janus.services.workflow_collect_qc_services import BalsamicCollectQCService
 from janus.services.collect_qc_service import CollectQCService
 
 

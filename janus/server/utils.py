@@ -3,10 +3,10 @@
 from janus.constants.workflow import Workflow
 from janus.exceptions.exceptions import WorkflowNotSupportedError
 from janus.mappers.workflow_to_service import workflow_to_service
-from janus.services.balsamic_collect_qc_service import BalsamicCollectQCService
+from janus.services.workflow_collect_qc_services import WorkflowCollectQCService
 
 
-def get_workflow_service(workflow: Workflow) -> BalsamicCollectQCService:
+def get_workflow_service(workflow: Workflow) -> WorkflowCollectQCService:
     """Get the workflow service."""
     if workflow not in workflow_to_service.keys():
         raise WorkflowNotSupportedError(
