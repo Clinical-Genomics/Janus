@@ -1,12 +1,7 @@
 """Module to hold the collect qc service."""
 
-from janus.constants.FileTag import FileTag
-from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest
 from janus.dto.collect_qc_response import CollectQCResponse
-from janus.exceptions.exceptions import WorkflowNotSupportedError
-from janus.mappers.tag_to_parse_function import tag_to_parse_function
-from janus.models.workflow.balsamic import Balsamic
 from janus.services.workflow_collect_qc_services import WorkflowCollectQCService
 
 

@@ -1,5 +1,3 @@
-from enum import Enum
-
 from janus.constants.FileTag import FileTag
 from janus.models.multiqc.models import (
     PicardHsMetrics,
