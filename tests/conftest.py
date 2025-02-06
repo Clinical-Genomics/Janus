@@ -4,12 +4,10 @@ from pathlib import Path
 
 import pytest
 from _pytest.fixtures import FixtureRequest
-
 from janus.constants.FileTag import FileTag
 from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
 from janus.services.collect_qc_service import CollectQCService
-
 
 # Parser
 
@@ -219,14 +217,14 @@ def collect_qc_request_balsamic_tga(
 
 
 @pytest.fixture
-def collect_balsamic_qc_service_wgs(
+def collect_qc_service_balsamic_wgs(
     collect_qc_request_balsamic_wgs: CollectQCRequest,
 ) -> CollectQCService:
     return CollectQCService(collect_qc_request_balsamic_wgs)
 
 
 @pytest.fixture
-def collect_balsamic_qc_service_tga(
+def collect_qc_service_balsamic_tga(
     collect_qc_request_balsamic_tga: CollectQCRequest,
 ) -> CollectQCService:
     return CollectQCService(collect_qc_request_balsamic_tga)
