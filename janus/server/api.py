@@ -22,7 +22,9 @@ collect_qc_router = APIRouter()
     response_model_by_alias=False,
     response_model_exclude_none=True,
 )
-def collect_qc(collect_request: CollectQCRequest = Body(...), ) -> CollectQCResponse | JSONResponse:
+def collect_qc(
+    collect_request: CollectQCRequest = Body(...),
+) -> CollectQCResponse | JSONResponse:
     """Collect qc metrics for the external request."""
     try:
         workflow_service: WorkflowCollectQCService = get_workflow_service(collect_request.workflow)
