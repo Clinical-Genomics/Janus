@@ -22,13 +22,11 @@ collect_qc_router = APIRouter()
     response_model_by_alias=False,
     response_model_exclude_none=True,
 )
-def collect_qc(collect_request: CollectQCRequest = Body(...)) -> CollectQCResponse | JSONResponse:
+def collect_qc(collect_request: CollectQCRequest = Body(...), ) -> CollectQCResponse | JSONResponse:
     """Collect qc metrics for the external request."""
     try:
         workflow_service: WorkflowCollectQCService = get_workflow_service(collect_request.workflow)
-        collect_service = CollectQCService(
-            collect_qc_request=collect_request, collect_qc_service=workflow_service
-        )
-        return collect_service.collect_qc_metrics()
+        collect_service = CollectQCService(collect_qc_service=workflow_service)
+        return collect_service.collect_qc_metrics(collect_qc_request=collect_request)
     except (ValueError, FileNotFoundError, ValidationError, WorkflowNotSupportedError) as error:
         return JSONResponse(content=repr(error), status_code=HTTPStatus.BAD_REQUEST)
