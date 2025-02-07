@@ -15,17 +15,13 @@ def test_collect_balsamic_metrics_wgs(
 
     # WHEN collecting the qc metrics
 
-    balsamic_metrics: CollectQCResponse = (
-        collect_qc_service_balsamic_wgs.collect_qc_metrics(
-            collect_qc_request_balsamic_wgs
-        )
+    balsamic_metrics: CollectQCResponse = collect_qc_service_balsamic_wgs.collect_qc_metrics(
+        collect_qc_request_balsamic_wgs
     )
 
     # THEN the metrics are returned
     assert isinstance(balsamic_metrics, CollectQCResponse)
-    assert isinstance(
-        balsamic_metrics.case_info.samples[0].wgs_metrics, PicardWGSMetrics
-    )
+    assert isinstance(balsamic_metrics.case_info.samples[0].wgs_metrics, PicardWGSMetrics)
 
 
 def test_collect_balsamic_metrics_tga(
@@ -36,10 +32,8 @@ def test_collect_balsamic_metrics_tga(
 
     # WHEN collecting the qc metrics
 
-    balsamic_metrics: CollectQCResponse = (
-        collect_qc_service_balsamic_tga.collect_qc_metrics(
-            collect_qc_request_balsamic_tga
-        )
+    balsamic_metrics: CollectQCResponse = collect_qc_service_balsamic_tga.collect_qc_metrics(
+        collect_qc_request_balsamic_tga
     )
 
     # THEN the metrics are returned

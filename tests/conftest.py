@@ -15,7 +15,7 @@ from janus.services.collect_qc_service import CollectQCService
 
 @pytest.fixture
 def file_fixtures() -> Path:
-    return Path("tests","fixtures", "files")
+    return Path("tests", "fixtures", "files")
 
 
 @pytest.fixture
