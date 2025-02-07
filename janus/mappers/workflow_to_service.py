@@ -6,6 +6,5 @@ from janus.services.workflow_collect_qc_services import BalsamicCollectQCService
 
 workflow_to_service = {
     Workflow.BALSAMIC: BalsamicCollectQCService(),
-    Workflow.BALSAMIC_QC: BalsamicCollectQCService(),
     Workflow.BALSAMIC_UMI: BalsamicCollectQCService(),
 }
