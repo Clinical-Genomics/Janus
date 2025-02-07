@@ -7,6 +7,7 @@ from _pytest.fixtures import FixtureRequest
 from janus.constants.FileTag import FileTag
 from janus.constants.workflow import Workflow
 from janus.dto.collect_qc_request import CollectQCRequest, FilePathAndTag, WorkflowInfo
+from janus.services.workflow_collect_qc_services import BalsamicCollectQCService
 from janus.services.collect_qc_service import CollectQCService
 
 # Parser
@@ -14,7 +15,7 @@ from janus.services.collect_qc_service import CollectQCService
 
 @pytest.fixture
 def file_fixtures() -> Path:
-    return Path("fixtures", "files")
+    return Path("tests", "fixtures", "files")
 
 
 @pytest.fixture
@@ -34,12 +35,12 @@ def alignment_summary_metrics_path(file_fixtures: Path) -> Path:
 
 @pytest.fixture
 def picard_hs_metrics_path(file_fixtures: Path) -> Path:
-    return Path("fixtures", "files", "picard_HsMetrics.json")
+    return Path(file_fixtures, "picard_HsMetrics.json")
 
 
 @pytest.fixture
 def picard_wgs_metrics_path(file_fixtures: Path) -> Path:
-    return Path("fixtures", "files", "picard_wgsMetrics.json")
+    return Path(file_fixtures, "picard_wgsMetrics.json")
 
 
 @pytest.fixture
@@ -220,14 +221,18 @@ def collect_qc_request_balsamic_tga(
 def collect_qc_service_balsamic_wgs(
     collect_qc_request_balsamic_wgs: CollectQCRequest,
 ) -> CollectQCService:
-    return CollectQCService(collect_qc_request_balsamic_wgs)
+    return CollectQCService(
+        collect_qc_service=BalsamicCollectQCService(),
+    )
 
 
 @pytest.fixture
 def collect_qc_service_balsamic_tga(
     collect_qc_request_balsamic_tga: CollectQCRequest,
 ) -> CollectQCService:
-    return CollectQCService(collect_qc_request_balsamic_tga)
+    return CollectQCService(
+        collect_qc_service=BalsamicCollectQCService(),
+    )
 
 
 @pytest.fixture
@@ -236,4 +241,6 @@ def collect_qc_service_unsupported_workflow(
 ) -> CollectQCService:
     request: CollectQCRequest = collect_qc_request_balsamic_wgs
     request.workflow_info.workflow = "not_supported"
-    return CollectQCService(request)
+    return CollectQCService(
+        collect_qc_request=request, collect_qc_service=BalsamicCollectQCService()
+    )
