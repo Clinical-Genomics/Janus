@@ -40,7 +40,6 @@ Using this request, Janus can then parse the proper files using the `FilePathAnd
 
 The attributes `case_id` and  `sample_id` are used to identify the case and samples for which to retrieve files for.
 
-With this information in mind, take a look at the `CONTRIBUTING.md`.
 Within that file the steps are listed to implement parsing of a new workflows with Janus.
 
 
